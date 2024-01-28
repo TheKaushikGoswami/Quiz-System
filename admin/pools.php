@@ -8,6 +8,10 @@ include 'config/config.php';
 //     header('location: login.php');
 // }
 
+$sql = "SELECT * FROM `question_pools`";
+
+$result = $conn->query($sql);
+
 ?>
 
 <div class="container-fluid p-0">
@@ -58,13 +62,15 @@ include 'config/config.php';
                                 </div>
                                 <div class="modal-body">
                                     <label for="">Question Pool</label>
-                                    <select name="question_pool" class="bg-dark text-light form-select mb-3" id="" class="form-control">
-                                        <option value="">Operating System Development</option>
-                                        <option value="">Computer Architecture and Structure</option>
-                                        <option value="">Database Management System</option>
-                                    </select>
+                                        <select name="question_pool" class="bg-dark text-light form-select mb-3" id="" class="form-control">
+                                            <?php
+                                            while ($row2 = $result->fetch_assoc()) {
+                                                echo '<option value="' . $row2["id"] . '">' . str_replace('_', ' ', $row2["name"]) . '</option>';
+                                            }
+                                            ?>
+                                        </select>
                                     <label for="">Upload File</label>
-                                    <input type="file" name="file" class="form-control bg-dark text-light mb-3" id="" placeholder="Upload CSV File">
+                                    <input type="file" name="file" class="form-control bg-dark text-light mb-3" id="" placeholder="Upload CSV File" accept=".csv">
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
@@ -81,116 +87,27 @@ include 'config/config.php';
     </nav>
     <div class="container-fluid mt-3">
         <div class="row m-auto d-flex justify-content-center">
-            <div class="card bg-dark text-light m-3" style="width: 20rem;">
-                <span class="badge rounded-pill bg-primary" style="position: absolute;right: -11px;top: -7px;">400</span>
-                <div class="card-body">
-                    <h4 class="card-title mb-3">Operating System Development</h4>
-                    <p class="card-text">Here you get all the questions of Operating System Development for your quiz you want to design for the students</p>
-                    <div class="buttons d-flex justify-content-between">
-                        <a href="#" class="btn btn-outline-light">View Details</a>
-                        <a href="#" class="btn btn-outline-danger">Delete Pool</a>
+            <?php
+            if ($result->num_rows > 0) {
+                foreach ($result as $row) {
+            ?>
+                    <div class="card bg-dark text-light m-3" style="width: 20rem;">
+                        <span class="badge rounded-pill bg-primary" style="position: absolute;right: -11px;top: -7px;">400</span>
+                        <div class="card-body">
+                            <h4 class="card-title mb-3"><?php echo str_replace('_', ' ', $row["name"]); ?></h4>
+                            <p class="card-text">
+                                <?php echo $row["description"]; ?>
+                            </p>
+                            <div class="buttons d-flex justify-content-between">
+                                <a href="#" class="btn btn-outline-light">View Details</a>
+                                <a href="#" class="btn btn-outline-danger">Delete Pool</a>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="card bg-dark text-light m-3" style="width: 20rem;">
-                <span class="badge rounded-pill bg-primary" style="position: absolute;right: -11px;top: -7px;">400</span>
-                <div class="card-body">
-                    <h4 class="card-title mb-3">Operating System Development</h4>
-                    <p class="card-text">Here you get all the questions of Operating System Development for your quiz you want to design for the students</p>
-                    <div class="buttons d-flex justify-content-between">
-                        <a href="#" class="btn btn-outline-light">View Details</a>
-                        <a href="#" class="btn btn-outline-danger">Delete Pool</a>
-                    </div>
-                </div>
-            </div>
-            <div class="card bg-dark text-light m-3" style="width: 20rem;">
-                <span class="badge rounded-pill bg-primary" style="position: absolute;right: -11px;top: -7px;">400</span>
-                <div class="card-body">
-                    <h4 class="card-title mb-3">Operating System Development</h4>
-                    <p class="card-text">Here you get all the questions of Operating System Development for your quiz you want to design for the students</p>
-                    <div class="buttons d-flex justify-content-between">
-                        <a href="#" class="btn btn-outline-light">View Details</a>
-                        <a href="#" class="btn btn-outline-danger">Delete Pool</a>
-                    </div>
-                </div>
-            </div>
-            <div class="card bg-dark text-light m-3" style="width: 20rem;">
-                <span class="badge rounded-pill bg-primary" style="position: absolute;right: -11px;top: -7px;">400</span>
-                <div class="card-body">
-                    <h4 class="card-title mb-3">Operating System Development</h4>
-                    <p class="card-text">Here you get all the questions of Operating System Development for your quiz you want to design for the students</p>
-                    <div class="buttons d-flex justify-content-between">
-                        <a href="#" class="btn btn-outline-light">View Details</a>
-                        <a href="#" class="btn btn-outline-danger">Delete Pool</a>
-                    </div>
-                </div>
-            </div>
-            <div class="card bg-dark text-light m-3" style="width: 20rem;">
-                <span class="badge rounded-pill bg-primary" style="position: absolute;right: -11px;top: -7px;">400</span>
-                <div class="card-body">
-                    <h4 class="card-title mb-3">Operating System Development</h4>
-                    <p class="card-text">Here you get all the questions of Operating System Development for your quiz you want to design for the students</p>
-                    <div class="buttons d-flex justify-content-between">
-                        <a href="#" class="btn btn-outline-light">View Details</a>
-                        <a href="#" class="btn btn-outline-danger">Delete Pool</a>
-                    </div>
-                </div>
-            </div>
-            <div class="card bg-dark text-light m-3" style="width: 20rem;">
-                <span class="badge rounded-pill bg-primary" style="position: absolute;right: -11px;top: -7px;">400</span>
-                <div class="card-body">
-                    <h4 class="card-title mb-3">Operating System Development</h4>
-                    <p class="card-text">Here you get all the questions of Operating System Development for your quiz you want to design for the students</p>
-                    <div class="buttons d-flex justify-content-between">
-                        <a href="#" class="btn btn-outline-light">View Details</a>
-                        <a href="#" class="btn btn-outline-danger">Delete Pool</a>
-                    </div>
-                </div>
-            </div>
-            <div class="card bg-dark text-light m-3" style="width: 20rem;">
-                <span class="badge rounded-pill bg-primary" style="position: absolute;right: -11px;top: -7px;">400</span>
-                <div class="card-body">
-                    <h4 class="card-title mb-3">Operating System Development</h4>
-                    <p class="card-text">Here you get all the questions of Operating System Development for your quiz you want to design for the students</p>
-                    <div class="buttons d-flex justify-content-between">
-                        <a href="#" class="btn btn-outline-light">View Details</a>
-                        <a href="#" class="btn btn-outline-danger">Delete Pool</a>
-                    </div>
-                </div>
-            </div>
-            <div class="card bg-dark text-light m-3" style="width: 20rem;">
-                <span class="badge rounded-pill bg-primary" style="position: absolute;right: -11px;top: -7px;">400</span>
-                <div class="card-body">
-                    <h4 class="card-title mb-3">Operating System Development</h4>
-                    <p class="card-text">Here you get all the questions of Operating System Development for your quiz you want to design for the students</p>
-                    <div class="buttons d-flex justify-content-between">
-                        <a href="#" class="btn btn-outline-light">View Details</a>
-                        <a href="#" class="btn btn-outline-danger">Delete Pool</a>
-                    </div>
-                </div>
-            </div>
-            <div class="card bg-dark text-light m-3" style="width: 20rem;">
-                <span class="badge rounded-pill bg-primary" style="position: absolute;right: -11px;top: -7px;">400</span>
-                <div class="card-body">
-                    <h4 class="card-title mb-3">Operating System Development</h4>
-                    <p class="card-text">Here you get all the questions of Operating System Development for your quiz you want to design for the students</p>
-                    <div class="buttons d-flex justify-content-between">
-                        <a href="#" class="btn btn-outline-light">View Details</a>
-                        <a href="#" class="btn btn-outline-danger">Delete Pool</a>
-                    </div>
-                </div>
-            </div>
-            <div class="card bg-dark text-light m-3" style="width: 20rem;">
-                <span class="badge rounded-pill bg-primary" style="position: absolute;right: -11px;top: -7px;">400</span>
-                <div class="card-body">
-                    <h4 class="card-title mb-3">Operating System Development</h4>
-                    <p class="card-text">Here you get all the questions of Operating System Development for your quiz you want to design for the students</p>
-                    <div class="buttons d-flex justify-content-between">
-                        <a href="#" class="btn btn-outline-light">View Details</a>
-                        <a href="#" class="btn btn-outline-danger">Delete Pool</a>
-                    </div>
-                </div>
-            </div>
+            <?php
+                }
+            }
+            ?>
         </div>
     </div>
 

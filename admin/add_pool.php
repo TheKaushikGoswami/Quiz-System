@@ -8,6 +8,35 @@ include 'config/config.php';
 //     header('location: ../login.php');
 // }
 
+if (isset($_POST['submit'])) {
+    $name = $_POST['name'];
+    $description = $_POST['description'];
+
+    // if $name contains space replace space with underscore
+
+    $name = str_replace(' ', '_', $name);
+
+    $sql = "CREATE TABLE `$name` (
+        `id` int(11) NOT NULL AUTO_INCREMENT,
+        `question` varchar(255) NOT NULL,
+        `option1` varchar(255) NOT NULL,
+        `option2` varchar(255) NOT NULL,
+        `option3` varchar(255) NOT NULL,
+        `option4` varchar(255) NOT NULL,
+        `answer` varchar(255) NOT NULL,
+        PRIMARY KEY (`id`)
+      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+
+    $sql2 = "INSERT INTO `question_pools` (`name`, `description`) VALUES ('$name', '$description')";
+
+    if ($conn->query($sql) === TRUE) {
+        $conn->query($sql2);
+        echo '<script>alert("Question Pool Added Successfully")</script>';
+    } else {
+        echo '<script>alert("Failed to Add Question Pool")</script>';
+    }
+}
+
 ?>
 
 <style>
@@ -59,13 +88,13 @@ include 'config/config.php';
                 <h1 class="mb-0">Add New Question Pool</h1>
             </div>
             <div class="card-body">
-                <form class="" action="">
+                <form class="" action="" method="post">
                     <label for="name">Subject</label>
                     <input type="text" class="form-control bg-dark text-light mb-3" name="name" id="name" placeholder="Enter Subject Name">
                     <label for="name">Description</label>
                     <textarea class="form-control bg-dark text-light mb-3" name="description" id="description" cols="30" rows="10" placeholder="Enter Description"></textarea>
                     <div class="d-flex justify-content-end">
-                        <button class="btn btn-outline-light col-md-1" type="submit">Add</button>
+                        <button class="btn btn-outline-light col-md-1" type="submit" name="submit">Add</button>
                     </div>
                 </form>
             </div>
