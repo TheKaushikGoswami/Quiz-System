@@ -17,6 +17,17 @@ Discover the magic where innovation meets education, as we present a platform de
 
 ##
 
+### A Look to QMS:
+
+<img src="https://i.imgur.com/U4BGzKI.jpeg">
+
+<br>
+<br>
+
+<img src="https://i.imgur.com/zOFn2sc.jpeg">
+
+##
+
 👩‍🏫 Whether you're an educator seeking a reliable and innovative assessment tool or an organization dedicated to employee training, our Quiz Management System with Dynamic Shuffling promises a holistic, fair, and engaging experience for all users. Experience the transformative power of assessment with our state-of-the-art platform and unlock new possibilities in the realm of online quizzes! 🚀🌐🧠
 
 ##
