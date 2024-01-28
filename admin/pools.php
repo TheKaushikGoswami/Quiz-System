@@ -42,7 +42,38 @@ include 'config/config.php';
                         </ul>
                     </li>
                 </ul>
-                <form class="d-flex" role="search">
+                <form class="d-flex" role="search"><!-- Button trigger modal -->
+                    <button type="button" class="btn btn-outline-success mr-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Upload Questions
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal modal-lg fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content  bg-dark text-light">
+                            <form action="" method="post" enctype="multipart/form-data">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Upload Questions to Pool</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <label for="">Question Pool</label>
+                                    <select name="question_pool" class="bg-dark text-light form-select mb-3" id="" class="form-control">
+                                        <option value="">Operating System Development</option>
+                                        <option value="">Computer Architecture and Structure</option>
+                                        <option value="">Database Management System</option>
+                                    </select>
+                                    <label for="">Upload File</label>
+                                    <input type="file" name="file" class="form-control bg-dark text-light mb-3" id="" placeholder="Upload CSV File">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button class="btn btn-outline-success" type="submit">Upload</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    </div>
                     <button class="btn btn-outline-danger" type="submit">Logout</button>
                 </form>
             </div>
