@@ -15,16 +15,6 @@ Discover the magic where innovation meets education, as we present a platform de
 
 - 📊 **Efficient Record-Keeping and Performance Analytics:** Seamlessly record user responses and quiz results for a comprehensive view of performance analytics. Administrators can easily track individual progress, identify areas of strength and weakness, and make informed decisions for further educational strategies.
 
-##
-
-### A Look to QMS:
-
-<img src="https://i.imgur.com/U4BGzKI.jpeg">
-
-<br>
-<br>
-
-<img src="https://i.imgur.com/zOFn2sc.jpeg">
 
 ##
 
