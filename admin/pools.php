@@ -100,7 +100,7 @@ $result = $conn->query($sql);
                             </p>
                             <div class="buttons d-flex justify-content-between">
                                 <a href="#" class="btn btn-outline-light">View Details</a>
-                                <a href="#" class="btn btn-outline-danger">Delete Pool</a>
+                                <a href="#" class="btn btn-outline-danger" onclick="deletePool('<?php echo $row["name"]; ?>')">Delete Pool</a>
                             </div>
                         </div>
                     </div>
@@ -112,6 +112,15 @@ $result = $conn->query($sql);
     </div>
 
 </div>
+
+<script>
+    function deletePool(poolName) {
+        var r = confirm("Are you sure you want to delete the pool " + poolName + "?");
+        if (r == true) {
+            window.location.href = "delete_pool.php?pool=" + poolName;
+        }
+    }
+</script>
 
 <?php
 include '../includes/footer.php';
