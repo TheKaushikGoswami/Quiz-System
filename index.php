@@ -1,5 +1,6 @@
 <?php
 include 'includes/header.php';
+include 'admin/config/config.php';
 ?>
 
 <div class="container-fluid">
@@ -11,22 +12,21 @@ include 'includes/header.php';
                     <h2>Quiz</h2>
                 </div>
                 <div class="card-body">
-                    <form action="" method="post">
-                        <div class="question p-3 mb-3">
-                            <h4>Question 1</h4>
-                            <div class="options col-md-11 m-auto d-flex flex-column">
-                                <label for=""><input type="radio" class="form-radio" name="answer1" value="a">Answer 1</label>
-                                <label for=""><input type="radio" class="form-radio" name="answer1" value="b">Answer 2</label>
-                                <label for=""><input type="radio" class="form-radio" name="answer1" value="c">Answer 3</label>
-                                <label for=""><input type="radio" class="form-radio" name="answer1" value="d">Answer 4</label>
-                            </div>
-                        </div>
-                        <div class="submit-button col-md-11 m-auto d-flex flex-row-reverse">
-                            <button class="btn btn-light">
-                                Submit
-                            </button>
-                        </div>
-                    </form>
+                    <?php
+                    $sql = "SELECT * FROM `quiz`";
+                    $result = $conn->query($sql);
+                    if($result->num_rows > 0) {
+                        while($row = $result->fetch_assoc()) {
+                            $quiz_id = $row['id'];
+                            $quiz_name = $row['name'];
+                            $quiz_rules = $row['rules'];
+                            $quiz_time = $row['time'];
+                    ?>
+                    <h1><a class="btn btn-light" href="quiz.php?quiz_id=<?php echo $row['id'] ?>"><?php echo $row['name'] ?></a></h1>
+                    <?php
+                        }
+                    }   
+                    ?>
                 </div>
             </div>
         </div>

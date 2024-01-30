@@ -29,13 +29,13 @@ $result = $conn->query($sql);
                         <a class="nav-link" href="index.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="pools.php">Question Pools</a>
+                        <a class="nav-link" href="pools.php">Question Pools</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
+                        <button class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false"  aria-current="page">
                             Admin Action
-                        </a>
+                        </button>
                         <ul class="dropdown-menu bg-dark-subtle">
                             <li><a class="dropdown-item" href="add_quiz.php">Create New Quiz</a></li>
                             <li><a class="dropdown-item" href="remove_quiz.php">Remove Quiz</a></li>
@@ -46,7 +46,7 @@ $result = $conn->query($sql);
                         </ul>
                     </li>
                 </ul>
-                <form class="d-flex" role="search"><!-- Button trigger modal -->
+                <div class="d-flex" role="search"><!-- Button trigger modal -->
                     <button type="button" class="btn btn-outline-success mr-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Upload Questions
                     </button>
@@ -55,7 +55,7 @@ $result = $conn->query($sql);
                     <div class="modal modal-lg fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content  bg-dark text-light">
-                            <form action="" method="post" enctype="multipart/form-data">
+                            <form action="upload_questions.php" method="post" enctype="multipart/form-data">
                                 <div class="modal-header">
                                     <h1 class="modal-title fs-5" id="exampleModalLabel">Upload Questions to Pool</h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -65,7 +65,7 @@ $result = $conn->query($sql);
                                         <select name="question_pool" class="bg-dark text-light form-select mb-3" id="" class="form-control">
                                             <?php
                                             while ($row2 = $result->fetch_assoc()) {
-                                                echo '<option value="' . $row2["id"] . '">' . str_replace('_', ' ', $row2["name"]) . '</option>';
+                                                echo '<option value="' . $row2["name"] . '">' . str_replace('_', ' ', $row2["name"]) . '</option>';
                                             }
                                             ?>
                                         </select>
@@ -74,14 +74,14 @@ $result = $conn->query($sql);
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button class="btn btn-outline-success" type="submit">Upload</button>
+                                    <button class="btn btn-outline-success" type="submit" name="submit">Upload</button>
                                 </div>
                             </form>
                         </div>
                     </div>
                     </div>
                     <button class="btn btn-outline-danger" type="submit">Logout</button>
-                </form>
+                </div>
             </div>
         </div>
     </nav>
@@ -99,7 +99,7 @@ $result = $conn->query($sql);
                                 <?php echo $row["description"]; ?>
                             </p>
                             <div class="buttons d-flex justify-content-between">
-                                <a href="#" class="btn btn-outline-light">View Details</a>
+                                <a href="pool_details.php?pool_id=<?php echo $row['id'] ?>" class="btn btn-outline-light">View Details</a>
                                 <a href="#" class="btn btn-outline-danger" onclick="deletePool('<?php echo $row["name"]; ?>')">Delete Pool</a>
                             </div>
                         </div>

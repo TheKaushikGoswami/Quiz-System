@@ -64,7 +64,7 @@ include 'config/config.php';
                 <h1 class="mb-0">Add New Quiz</h1>
             </div>
             <div class="card-body">
-                <form class="" action="">
+                <form class="" action="quiz.php" method="post">
                     <div class="input-group">
                         <input type="number" class="form-control bg-dark text-light" name="num_subjects"
                             id="num_subjects" placeholder="Enter Number of Subjects"><button
@@ -87,7 +87,7 @@ include 'config/config.php';
                         placeholder="Enter Quiz Time in Minutes">
 
                     <div class="d-flex justify-content-end">
-                        <button class="btn btn-outline-light col-md-1" type="submit">Add</button>
+                        <button class="btn btn-outline-light col-md-1" type="submit" name="submit">Add</button>
                     </div>
                 </form>
             </div>
@@ -114,11 +114,13 @@ include 'config/config.php';
                 subjectDiv.innerHTML = `
                     <div class="input-group">
                     <select class="form-control bg-dark col-md-6 text-light" name="subject${i + 1}" id="">
-                        <option value="">Subject 1</option>
-                        <option value="">Subject 2</option>
-                        <option value="">Subject 3</option>
-                        <option value="">Subject 4</option>
-                        <option value="">Subject 5</option>
+                       <?php
+                       $sql = "SELECT * FROM `question_pools`";
+                        $result = $conn->query($sql);
+                        while ($row = $result->fetch_assoc()) {
+                            echo '<option value="' . $row["name"] . '">' . str_replace('_', ' ', $row["name"]) . '</option>';
+                        }
+                       ?>
                     </select>
                     <input type="number" class="form-control col-md-6 bg-dark text-light" name="num_questions${i + 1}" id="num_questions" placeholder="Enter Number of Questions">
                     </div>
