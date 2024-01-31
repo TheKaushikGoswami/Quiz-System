@@ -4,9 +4,9 @@ include 'config/config.php';
 
 session_start();
 
-if (!isset($_SESSION['admin'])) {
-    header('location: ../login.php');
-}
+// if (!isset($_SESSION['admin'])) {
+//     header('location: ../login.php');
+// }
 
 if (isset($_POST['logout'])) {
     session_destroy();
@@ -95,9 +95,16 @@ $result = $conn->query($sql);
             <?php
             if ($result->num_rows > 0) {
                 foreach ($result as $row) {
+                    // now write the code to get number of questions in the pool
+                    $pool_name = $row['name'];
+                    $sql = "SELECT * FROM `$pool_name`";
+                    $result2 = $conn->query($sql);
+                    $num_questions = $result2->num_rows;
+
+
             ?>
                     <div class="card bg-dark text-light m-3" style="width: 20rem;">
-                        <span class="badge rounded-pill bg-primary" style="position: absolute;right: -11px;top: -7px;">400</span>
+                        <span class="badge rounded-pill bg-primary" style="position: absolute;right: -11px;top: -7px;"><?php echo $num_questions ?></span>
                         <div class="card-body">
                             <h4 class="card-title mb-3"><?php echo str_replace('_', ' ', $row["name"]); ?></h4>
                             <p class="card-text">
