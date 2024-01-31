@@ -2,11 +2,14 @@
 include '../includes/header.php';
 include 'config/config.php';
 
-// session_start();
+session_start();
 
-// if (!isset($_SESSION['admin'])) {
-//     header('location: login.php');
-// }
+echo "<script>alert('" . $_SESSION['admin'] . "')</script>";
+
+if (isset($_POST['logout'])) {
+    session_destroy();
+    header('location: ../login.php');
+}
 
 ?>
 
@@ -48,8 +51,8 @@ include 'config/config.php';
                         </ul>
                     </li>
                 </ul>
-                <form class="d-flex" role="search">
-                    <button class="btn btn-outline-danger" type="submit">Logout</button>
+                <form class="d-flex" method="post" role="search">
+                    <button class="btn btn-outline-danger" type="submit" name="logout">Logout</button>
                 </form>
             </div>
         </div>

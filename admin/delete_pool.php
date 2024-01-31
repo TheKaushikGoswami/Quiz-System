@@ -2,11 +2,11 @@
 
 include 'config/config.php';
 
-// session_start();
+session_start();
 
-// if (!isset($_SESSION['admin'])) {
-//     header('location: login.php');
-// }
+if (!isset($_SESSION['admin'])) {
+    header('location: ../login.php');
+}
 
 $pool_name = $_SERVER['QUERY_STRING'];
 $pool_name = substr($pool_name, 5);

@@ -1,38 +1,23 @@
 <?php
 
 include 'admin/config/config.php';
+include 'includes/header.php';
 
-session_start();
-
-if (isset($_SESSION['admin'])) {
-    header('location: admin/index.php');
-}
-
-if (isset($_POST['submit'])) {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-
-    $sql = "SELECT * FROM user WHERE username = '$username' AND password = '$password'";
-    $result = mysqli_query($conn, $sql);
-
-    if (mysqli_num_rows($result) > 0) {
-        $_SESSION['admin'] = $username;
-        header('location: admin/index.php');
-    } else {
-        echo "<script>alert('Invalid Credentials')</script>";
-    }
-}
 
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-</head>
-<body>
-    
-</body>
-</html>
+<div class="container-fluid" style="height:100vh;display:flex;align-items:center">
+    <div class="card col-md-4 m-auto bg-dark text-light">
+        <div class="card-header mt-2 mb-4">
+            <h1 class="text-center">Login here</h1>
+        </div>
+        <div class="card-body mb-4">
+            <form action="admin/handlers/login_handler.php" method="post">
+                <input type="email" name="email" placeholder="Enter Your Email" class="form-control bg-dark text-light mb-3">
+                <input type="password" name="password" placeholder="Enter Your Password" class="form-control bg-dark text-light mb-3">
+                <button class="btn btn-outline-success" name="submit" type="submit">Sign In</button>
+
+            </form>
+        </div>
+    </div>
+</div>
