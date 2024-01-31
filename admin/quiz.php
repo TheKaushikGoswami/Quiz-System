@@ -1,7 +1,13 @@
 <?php
 
+session_start();
+
 include "config/config.php";
 include "add_quiz.php";
+
+if (!isset($_SESSION['admin'])) {
+    header('location: ../login.php');
+}
 
 if(isset($_POST['submit'])) {
     $num_subjects = $_POST['num_subjects'];

@@ -1,8 +1,13 @@
 <?php
 
+session_start();
+
 include 'config/config.php';
 include 'pools.php';
 
+if (!isset($_SESSION['admin'])) {
+    header('location: ../login.php');
+}
 
 if (isset($_POST['submit'])) {
     $table = $_POST['question_pool'];
