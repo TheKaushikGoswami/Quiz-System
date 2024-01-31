@@ -34,7 +34,7 @@ include 'includes/header.php';
   </head>
   <body>
     <div class="container mt-3">
-      <form>
+      <form action="admin/handlers/register_handler.php" method="POST">
         <div class="row jumbotron box8">
           <div class="col-sm-12 form-group">
             <h2 class="text-center">Register</h2>
@@ -44,7 +44,7 @@ include 'includes/header.php';
             <input
               type="text"
               class="form-control"
-              name="fname"
+              name="name"
               id="name-f"
               placeholder="Enter your name."
               required
@@ -55,7 +55,7 @@ include 'includes/header.php';
             <input
               type="text"
               class="form-control"
-              name="lname"
+              name="roll"
               id="name-l"
               placeholder="Enter your roll number."
               required
@@ -77,7 +77,7 @@ include 'includes/header.php';
             <input
               type="text"
               class="form-control"
-              name="lname"
+              name="course"
               id="name-l"
               placeholder="Enter your course."
               required
@@ -88,7 +88,7 @@ include 'includes/header.php';
             <input
               type="text"
               class="form-control"
-              name="lname"
+              name="year"
               id="name-l"
               placeholder="Enter your year."
               required
@@ -99,7 +99,7 @@ include 'includes/header.php';
             <input
               type="text"
               class="form-control"
-              name="lname"
+              name="semester"
               id="name-l"
               placeholder="Enter your semester."
               required
@@ -120,7 +120,7 @@ include 'includes/header.php';
             <label for="pass2">Confirm Password</label>
             <input
               type="Password"
-              name="cnf-password"
+              name="cnf_password"
               class="form-control"
               id="pass2"
               placeholder="Re-enter your password."
@@ -128,7 +128,7 @@ include 'includes/header.php';
             />
           </div>
           <div class="col-sm-12 form-group mb-2 mt-4">
-            <button class="btn btn-primary float-right">Submit</button>
+            <button class="btn btn-primary float-right" name="submit">Submit</button>
           </div>
         </div>
       </form>
