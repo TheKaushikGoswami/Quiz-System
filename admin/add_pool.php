@@ -1,8 +1,11 @@
 <?php
-session_start();
+
+
+
 
 include '../includes/header.php';
 include 'config/config.php';
+
 
 
 if (!isset($_SESSION['admin'])) {
@@ -77,8 +80,8 @@ if (isset($_POST['submit'])) {
                         </ul>
                     </li>
                 </ul>
-                <form class="d-flex" role="search">
-                    <button class="btn btn-outline-danger" type="submit">Logout</button>
+                <form class="d-flex" method="post" role="search">
+                    <button class="btn btn-outline-danger" type="submit" name="logout">Logout</button>
                 </form>
             </div>
         </div>

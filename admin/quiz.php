@@ -1,6 +1,8 @@
 <?php
 
-session_start();
+
+
+
 
 include "config/config.php";
 include "add_quiz.php";
@@ -27,16 +29,17 @@ if(isset($_POST['submit'])) {
     $quiz_name = $_POST['quiz_name'];
     $quiz_rules = $_POST['quiz_rules'];
     $quiz_time = $_POST['quiz_time'];
+    $quiz_start = $_POST['quiz_start'];
 
     // echo $pools . '<br>';
     // echo $num_questions . '<br>';
     // echo $total_ques . '<br>';
 
-    $sql = "INSERT INTO `quiz` (`name`, `rules`, `time`, `pools`, `ques_per_pool`, `total_ques`) VALUES ('$quiz_name', '$quiz_rules', '$quiz_time', '$pools', '$num_questions', '$total_ques')";
+    $sql = "INSERT INTO `quiz` (`name`, `rules`, `time`, `pools`, `ques_per_pool`, `total_ques`, `start`) VALUES ('$quiz_name', '$quiz_rules', '$quiz_time', '$pools', '$num_questions', '$total_ques', '$quiz_start')";
     $result = $conn->query($sql);
     if($result) {
-        // header('Location: add_quiz.php');
-        echo "<script>alert('Quiz added successfully')</script>";
+        echo "<script>alert('Quiz added successfully');window.location.href='add_quiz.php'
+        </script>";
     } else {
         echo $conn->error;
     }

@@ -2,6 +2,11 @@
 include 'includes/header.php';
 include 'admin/config/config.php';
 
+if(isset($_POST['logout'])){
+    session_destroy();
+    header('location: login.php');
+}
+
 $quiz_id = $_SERVER['QUERY_STRING'];
 $quiz_id = substr($quiz_id, 8);
 
@@ -25,7 +30,7 @@ $questions = array();
 for($i = 0; $i < count($pools); $i++) {
     $pool = $pools[$i];
     $num_questions = $ques_per_pool[$i];
-    $sql = "SELECT * FROM `$pool` ORDER BY RAND() LIMIT $num_questions";
+    $sql = "SELECT * FROM `$pool` ORDER BY RAND() LIMIT $num_questions ";
     $result = $conn->query($sql);
     if($result->num_rows > 0) {
         $questions[$pool] = array();
@@ -36,7 +41,12 @@ for($i = 0; $i < count($pools); $i++) {
 }
 ?>
 
-<div class="container-fluid">
+<div class="container-fluid p-0">
+    <nav class="navbar navbar-expand-lg col-md-12 navbar-dark bg-dark m-0 ">
+    <form class="d-flex" method="post" role="search">
+                    <button class="btn btn-outline-danger" type="submit" name="logout">Logout</button>
+                </form>
+    </nav>
 
     <div class="row">
         <div class="col-md-12">

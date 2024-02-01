@@ -1,6 +1,8 @@
 <?php
 
-session_start();
+
+
+
 include "../includes/header.php";
 include 'config/config.php';
 
@@ -42,7 +44,9 @@ $result = $conn->query($sql);
                     </li>
                 </ul>
                 <form class="d-flex" role="search">
-                    <button class="btn btn-outline-danger" type="submit">Logout</button>
+                    <form class="d-flex" method="post" role="search">
+                    <button class="btn btn-outline-danger" type="submit" name="logout">Logout</button>
+                </form>
                 </form>
             </div>
         </div>

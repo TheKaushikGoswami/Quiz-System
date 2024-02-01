@@ -21,9 +21,33 @@ include 'includes/header.php';
         <input type="text" name="name" placeholder="Enter Your name" class="form-control bg-dark text-light mb-2">
         <input type="number" name="roll" placeholder="Enter Your Roll Number" class="form-control bg-dark text-light mb-2">
         <input type="email" name="email" placeholder="Enter Your Email" class="form-control bg-dark text-light mb-2">
-        <input type="text" name="course" placeholder="Enter Your Course" class="form-control bg-dark text-light mb-2">
-        <input type="text" name="year" placeholder="Enter Your Year" class="form-control bg-dark text-light mb-2">
-        <input type="text" name="semester" placeholder="Enter Your Semester" class="form-control bg-dark text-light mb-2">
+        <select name="course" id="">
+          <option disabled>Select Your Course</option>
+          <option value="B.Tech">B.Tech</option>
+          <option value="M.Tech">M.Tech</option>
+          <option value="B.Sc">B.Sc</option>
+          <option value="BCA">BCA</option>
+          <option value="MCA">MCA</option>
+          <option value="MBA">MBA</option>
+        </select>
+        <select name="year" id="">
+          <option disabled>Select Your Year</option>
+          <option value="1st">1st</option>
+          <option value="2nd">2nd</option>
+          <option value="3rd">3rd</option>
+          <option value="4th">4th</option>
+        </select>
+        <select name="semester" id="">
+          <option disabled>Select Your Semester</option>
+          <option value="1st">1st</option>
+          <option value="2nd">2nd</option>
+          <option value="3rd">3rd</option>
+          <option value="4th">4th</option>
+          <option value="5th">5th</option>
+          <option value="6th">6th</option>
+          <option value="7th">7th</option>
+          <option value="8th">8th</option>
+        </select>
         <input type="password" name="password" placeholder="Enter Your Password" class="form-control bg-dark text-light mb-2">
         <input type="password" name="cnf_password" placeholder="Confirm Your Password" class="form-control bg-dark text-light mb-2">
         <div class="d-flex justify-content-end">

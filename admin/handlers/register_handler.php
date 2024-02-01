@@ -29,7 +29,7 @@ if (isset($_POST['submit'])) {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
     } else {
-        echo "<script>alert('Passwords do not match!')</script>";
+        echo "<script>alert('Passwords do not match!');window.location.href='../../register.php'</script>";
     }
 
 }

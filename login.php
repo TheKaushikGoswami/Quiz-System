@@ -1,6 +1,8 @@
 <?php
 
-session_start();
+
+
+
 
 include 'admin/config/config.php';
 include 'includes/header.php';

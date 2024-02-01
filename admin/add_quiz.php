@@ -1,5 +1,7 @@
 <?php
-session_start();
+    
+
+
 
 include '../includes/header.php';
 include 'config/config.php';
@@ -53,8 +55,8 @@ if (!isset($_SESSION['admin'])) {
                         </ul>
                     </li>
                 </ul>
-                <form class="d-flex" role="search">
-                    <button class="btn btn-outline-danger" type="submit">Logout</button>
+                <form class="d-flex" method="post" role="search">
+                    <button class="btn btn-outline-danger" type="submit" name="logout">Logout</button>
                 </form>
             </div>
         </div>
@@ -80,12 +82,41 @@ if (!isset($_SESSION['admin'])) {
                     <hr>
                     <div id="subjects-div"></div>
                     <hr>
+                    <label for=""><h5>Quiz details:</h5></label>
                     <input type="text" class="form-control bg-dark text-light mb-3" name="quiz_name" id="quiz_name"
                         placeholder="Enter Quiz Name">
                     <textarea class="form-control bg-dark text-light mb-3" name="quiz_rules" id="quiz_rules"
                         placeholder="Enter Quiz Rules" rows="3"></textarea>
                     <input type="number" class="form-control bg-dark text-light mb-3" name="quiz_time" id="quiz_time"
                         placeholder="Enter Quiz Time in Minutes">
+                    <hr>
+                    <label for=""><h5>Quiz starts at:</h5></label>
+                    <input type="datetime-local" class="form-control bg-dark text-light mb-3" name="quiz_start"
+                    id="quiz_start" placeholder="Enter Quiz Start Time">
+                    <hr>
+                    <label for=""><h5>Allot Quiz to:</h5></label>
+                    <select class="form-select bg-dark text-light mb-3" name="allot_course" id="allot_course">
+                        <option value="B.Tech">B.Tech</option>
+                        <option value="M.Tech">M.Tech</option>
+                        <option value="MCA">MCA</option>
+                        <option value="MBA">MBA</option>
+                        <option value="BBA">BBA</option>
+                        <option value="BCA">BCA</option>
+                        <option value="B.Com">B.Com</option>
+                        <option value="M.Com">M.Com</option>
+                        <option value="B.Sc">B.Sc</option>
+                        <option value="M.Sc">M.Sc</option>
+                        <option value="B.A">B.A</option>
+                        <option value="M.A">M.A</option>
+                    </select>
+                    <select class="form-select bg-dark text-light mb-3" name="allot_year" id="allot_year">
+                        <option value="1st Year">1st Year</option>
+                        <option value="2nd Year">2nd Year</option>
+                        <option value="3rd Year">3rd Year</option>
+                        <option value="4th Year">4th Year</option>
+                    </select>
+                    <div id="users-div"></div>
+
 
                     <div class="d-flex justify-content-end">
                         <button class="btn btn-outline-light col-md-1" type="submit" name="submit">Add</button>

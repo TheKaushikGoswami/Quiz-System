@@ -1,5 +1,7 @@
 <?php
-session_start();
+
+
+
 
 include '../includes/header.php';
 include 'config/config.php';
@@ -9,10 +11,8 @@ if (!isset($_SESSION['admin'])) {
     header('location: ../login.php');
 }
 
-if (isset($_POST['logout'])) {
-    session_destroy();
-    header('location: ../login.php');
-}
+
+
 
 $sql = "SELECT * FROM `question_pools`";
 
@@ -86,7 +86,9 @@ $result = $conn->query($sql);
                         </div>
                     </div>
                     </div>
-                    <button class="btn btn-outline-danger" type="submit">Logout</button>
+                    <form class="d-flex" method="post" role="search">
+                    <button class="btn btn-outline-danger" type="submit" name="logout">Logout</button>
+                </form>
                 </div>
             </div>
         </div>

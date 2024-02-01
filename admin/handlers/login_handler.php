@@ -1,5 +1,7 @@
 <?php
-session_start();
+
+
+
 include '../config/config.php';
 
 
@@ -21,6 +23,6 @@ if (isset($_POST['submit'])) {
             }
         }
     } else {
-        echo "<script>alert('Invalid Credentials')</script>";
+        echo "<script>alert('Invalid Credentials');window.location.href='../../login.php'</script>";
     }
 }
