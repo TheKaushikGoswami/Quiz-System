@@ -1,6 +1,19 @@
 <?php
+
+session_start();
+
 include 'includes/header.php';
 include 'admin/config/config.php';
+
+if (isset($_POST['logout'])) {
+    session_destroy();
+    header('location: login.php');
+}
+
+if (!isset($_SESSION['user'])) {
+    header('location: login.php');
+}
+
 ?>
 
 <div class="container-fluid">

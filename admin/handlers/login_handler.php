@@ -13,10 +13,10 @@ if (isset($_POST['submit'])) {
     if ($result->num_rows > 0) {
         foreach($result as $row){
             if ($row['admin'] == 1) {
-                $_SESSION['admin'] = $row['id'];
+                $_SESSION['admin'] = $row['roll_no'];
                 echo "<script>alert('Logged in successfully!'); window.location.href='../index.php';</script>";
             } else {
-                $_SESSION['user'] = $row['id'];
+                $_SESSION['user'] = $row['roll_no'];
                 echo "<script>alert('Logged in successfully!'); window.location.href='../../index.php';</script>";
             }
         }

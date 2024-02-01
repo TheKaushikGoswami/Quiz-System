@@ -4,8 +4,6 @@ session_start();
 include '../includes/header.php';
 include 'config/config.php';
 
-echo "<script>alert('" . $_SESSION['admin'] . "')</script>";
-
 if (!isset($_SESSION['admin'])) {
     header('location: ../login.php');
 }

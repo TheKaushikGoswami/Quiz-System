@@ -1,8 +1,17 @@
 <?php
 
+session_start();
+
 include 'admin/config/config.php';
 include 'includes/header.php';
 
+if (isset($_SESSION['admin'])) {
+    header('location: admin/index.php');
+}
+
+else if (isset($_SESSION['user'])) {
+    header('location: index.php');
+}
 
 ?>
 
