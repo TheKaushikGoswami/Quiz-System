@@ -1,14 +1,14 @@
 <?php
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-use PHPMailer\PHPMailer\SMTP;
-
-require '../../src/Exception.php';
-require '../../src/PHPMailer.php';
-require '../../src/SMTP.php';
-
 include '../config/config.php';
+require_once '../../vendor/autoload.php'; // Include the Swift Mailer autoload file
+
+// ini_set for sending mail
+ini_set("SMTP", "smtp.gmail.com");
+ini_set("smtp_port", "587");
+ini_set("sendmail_from", "thekaushikgoswami@gmail.com");
+ini_set("SMTPAuth", true);
+ini_set("SMTPSecure", "tls");
 
 if (isset($_POST['submit'])) {
     $roll = $_POST['roll'];
@@ -30,38 +30,48 @@ if (isset($_POST['submit'])) {
     if ($password == $cnf_password) {
         // Generate a unique token
         $token = bin2hex(random_bytes(50));
-    
+
         // Insert user data along with the token and set email verification to false
         $sql = "INSERT INTO `users` (`roll_no`, `name`, `email`, `course`, `year`, `semester`, `password`, `token`) VALUES ('$roll', '$name', '$email', '$course', '$year', '$semester', '$password', '$token')";
         $result = $conn->query($sql);
-    
+
         if ($result === TRUE) {
-            $mail = new PHPMailer(true);
-        
-            try {
-                //Server settings
-                $mail->isSMTP();
-                $mail->Host       = 'smtp.gmail.com';  // Set the SMTP server to send through
-                $mail->SMTPAuth   = true;                // Enable SMTP authentication
-                $mail->Username   = 'prograund001@gmail.com'; // SMTP username
-                $mail->Password   = '137W0tWAuBF3';    // SMTP password
-                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-                $mail->Port       = 587;
-        
-                //Recipients
-                $mail->setFrom('prograund001@gmail.com', 'Mailer');
-                $mail->addAddress($email); // Add a recipient, using the email from the form
-        
-                // Content
-                $mail->isHTML(true);
-                $mail->Subject = 'Email Verification';
-                $mail->Body    = 'Please click on the following link to verify your email: <a href="http://localhost/admin/verify_email.php?token=your_unique_token">Verify Email</a>';
-        
-                $mail->send();
-                echo "<script>alert('Registration successful. Please verify your email.'); window.location.href='../../login.php';</script>";
-            } catch (Exception $e) {
-                echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            // Send verification email to the email provided
+            $to = $email;
+            $subject = "Email Verification";
+            $message = "Hi " . $name . ",<br><br>Click <a href='http://localhost/verify.php?token=" . $token . "'>here</a> to verify your email.";
+            $headers = "From: thekaushikgoswami@gmail.com\r\n";
+            $headers .= "MIME-Version: 1.0" . "\r\n";
+            $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
+            $smtpConfig = [
+                'ssl' => [
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                    'allow_self_signed' => true
+                ]
+            ];
+
+            $transport = new Swift_SmtpTransport('smtp.gmail.com', 587, 'tls');
+            $transport->setUsername('thekaushikgoswami@gmail.com');
+            $transport->setPassword('Googlemail@_TheKaushikG_@1');
+            $transport->setStreamOptions($smtpConfig);
+
+            $mailer = new Swift_Mailer($transport);
+
+            $message = (new Swift_Message($subject))
+                ->setFrom(['thekaushikgoswami@gmail.com' => 'Your Name'])
+                ->setTo([$to])
+                ->setBody($message, 'text/html');
+
+            $result = $mailer->send($message);
+
+            if ($result) {
+                echo "<script>alert('User registered successfully! Please verify your email to login.');</script>";
+            } else {
+                echo "Error sending email.";
             }
+
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
