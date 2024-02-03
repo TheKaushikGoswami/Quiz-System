@@ -1,14 +1,6 @@
 <?php
 
 include '../config/config.php';
-require_once '../../vendor/autoload.php'; // Include the Swift Mailer autoload file
-
-// ini_set for sending mail
-ini_set("SMTP", "smtp.gmail.com");
-ini_set("smtp_port", "587");
-ini_set("sendmail_from", "thekaushikgoswami@gmail.com");
-ini_set("SMTPAuth", true);
-ini_set("SMTPSecure", "tls");
 
 if (isset($_POST['submit'])) {
     $roll = $_POST['roll'];
@@ -36,43 +28,18 @@ if (isset($_POST['submit'])) {
         $result = $conn->query($sql);
 
         if ($result === TRUE) {
-            // Send verification email to the email provided
-            $to = $email;
+            // Send email to the user using Brevo API
             $subject = "Email Verification";
-            $message = "Hi " . $name . ",<br><br>Click <a href='http://localhost/verify.php?token=" . $token . "'>here</a> to verify your email.";
-            $headers = "From: thekaushikgoswami@gmail.com\r\n";
-            $headers .= "MIME-Version: 1.0" . "\r\n";
-            $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+            $body = "Hi, $name. Click here to verify your email: http://localhost/quiz-app/admin/handlers/verify_email.php?token=$token";
+            $headers = "From: Geeta University";
 
-            $smtpConfig = [
-                'ssl' => [
-                    'verify_peer' => false,
-                    'verify_peer_name' => false,
-                    'allow_self_signed' => true
-                ]
-            ];
-
-            $transport = new Swift_SmtpTransport('smtp.gmail.com', 587, 'tls');
-            $transport->setUsername('thekaushikgoswami@gmail.com');
-            $transport->setPassword('Googlemail@_TheKaushikG_@1');
-            $transport->setStreamOptions($smtpConfig);
-
-            $mailer = new Swift_Mailer($transport);
-
-            $message = (new Swift_Message($subject))
-                ->setFrom(['thekaushikgoswami@gmail.com' => 'Your Name'])
-                ->setTo([$to])
-                ->setBody($message, 'text/html');
-
-            $result = $mailer->send($message);
-
-            if ($result) {
+            if (mail($email, $subject, $body, $headers)) {
                 echo "<script>alert('User registered successfully! Please verify your email to login.');</script>";
             } else {
-                echo "Error sending email.";
+                echo "<script>alert('Failed to send email!');</script>";
             }
-
-        } else {
+        }
+        else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
     } else {

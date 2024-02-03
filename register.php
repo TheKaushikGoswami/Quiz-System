@@ -21,7 +21,7 @@ include 'includes/header.php';
         <input type="text" name="name" placeholder="Enter Your name" class="form-control bg-dark text-light mb-2">
         <input type="number" name="roll" placeholder="Enter Your Roll Number" class="form-control bg-dark text-light mb-2">
         <input type="email" name="email" placeholder="Enter Your Email" class="form-control bg-dark text-light mb-2">
-        <select name="course" id="">
+        <select name="course" id="" class="form-select bg-dark text-light mb-2">
           <option disabled>Select Your Course</option>
           <option value="B.Tech">B.Tech</option>
           <option value="M.Tech">M.Tech</option>
@@ -30,14 +30,14 @@ include 'includes/header.php';
           <option value="MCA">MCA</option>
           <option value="MBA">MBA</option>
         </select>
-        <select name="year" id="">
+        <select name="year" id="" class="form-select bg-dark text-light mb-2">
           <option disabled>Select Your Year</option>
           <option value="1st">1st</option>
           <option value="2nd">2nd</option>
           <option value="3rd">3rd</option>
           <option value="4th">4th</option>
         </select>
-        <select name="semester" id="">
+        <select name="semester" id="" class="form-select bg-dark text-light mb-2">
           <option disabled>Select Your Semester</option>
           <option value="1st">1st</option>
           <option value="2nd">2nd</option>
