@@ -4,12 +4,12 @@
 
 
 
-include "config/config.php";
-include "add_quiz.php";
+include_once "config/config.php";
+// include "add_quiz.php";
 
 if (!isset($_SESSION['admin'])) {
     header('location: ../login.php');
-}
+} 
 
 if(isset($_POST['submit'])) {
     $num_subjects = $_POST['num_subjects'];
@@ -27,6 +27,7 @@ if(isset($_POST['submit'])) {
     }
 
     $quiz_name = $_POST['quiz_name'];
+    $quiz_name = str_replace(' ', '_', $quiz_name);
     $quiz_rules = $_POST['quiz_rules'];
     $quiz_time = $_POST['quiz_time'];
     $quiz_start = $_POST['quiz_start'];
@@ -35,9 +36,18 @@ if(isset($_POST['submit'])) {
     // echo $num_questions . '<br>';
     // echo $total_ques . '<br>';
 
+    $quiz_table = "CREATE TABLE `$quiz_name` (
+        `id` INT(11) NOT NULL AUTO_INCREMENT,
+        `user_id` BIGINT(20) NOT NULL,
+        `marks` FLOAT NOT NULL,
+        `marks_per_pool` VARCHAR(255) NOT NULL,
+        PRIMARY KEY (`id`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+
     $sql = "INSERT INTO `quiz` (`name`, `rules`, `time`, `pools`, `ques_per_pool`, `total_ques`, `start`) VALUES ('$quiz_name', '$quiz_rules', '$quiz_time', '$pools', '$num_questions', '$total_ques', '$quiz_start')";
     $result = $conn->query($sql);
     if($result) {
+        $conn->query($quiz_table);
         echo "<script>alert('Quiz added successfully');window.location.href='add_quiz.php'
         </script>";
     } else {

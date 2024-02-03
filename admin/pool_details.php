@@ -43,10 +43,8 @@ $result = $conn->query($sql);
                         <a class="nav-link" href="pools.php">Question Pools</a>
                     </li>
                 </ul>
-                <form class="d-flex" role="search">
-                    <form class="d-flex" method="post" role="search">
+                <form class="d-flex" method="post" role="search">
                     <button class="btn btn-outline-danger" type="submit" name="logout">Logout</button>
-                </form>
                 </form>
             </div>
         </div>

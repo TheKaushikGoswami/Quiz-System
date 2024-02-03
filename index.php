@@ -16,7 +16,7 @@ if (!isset($_SESSION['user'])) {
     header('location: login.php');
 }
 
-if(isset($_POST['logout'])){
+if (isset($_POST['logout'])) {
     session_destroy();
     header('location: login.php');
 }
@@ -25,35 +25,45 @@ if(isset($_POST['logout'])){
 
 <div class="container-fluid p-0">
     <nav class="navbar navbar-expand-lg col-md-12 navbar-dark bg-dark m-0 ">
-    <form class="d-flex" method="post" role="search">
-                    <button class="btn btn-outline-danger" type="submit" name="logout">Logout</button>
-                </form>
+        <form class="d-flex" method="post" role="search">
+            <button class="btn btn-outline-danger" type="submit" name="logout">Logout</button>
+        </form>
     </nav>
     <div class="row">
         <div class="col-md-12">
-            <h1 class="text-center my-4">Quiz Management System</h1>
-            <div class="card col-md-6 m-auto bg-dark text-light">
-                <div class="card-header">
-                    <h2>Quiz</h2>
-                </div>
-                <div class="card-body">
-                    <?php
-                    $sql = "SELECT * FROM `quiz` where `start` > NOW()+ INTERVAL 2 HOUR";
-                    $result = $conn->query($sql);
-                    if($result->num_rows > 0) {
-                        while($row = $result->fetch_assoc()) {
-                            $quiz_id = $row['id'];
+            <h1 class="text-center my-4">Active Quizes</h1>
+            <?php
+            $sql = "SELECT * FROM `quiz` where `start` > NOW()+ INTERVAL 2 HOUR";
+            $result = $conn->query($sql);
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    ?>
+                    <div class="card m-auto bg-dark text-light" style="width:18rem">
+                        <div class="card-header">
+                            <h2><?php echo $row['name'] ?></h2>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text"><?php echo $row['rules'] ?></p>
+                            <?php
                             $quiz_name = $row['name'];
-                            $quiz_rules = $row['rules'];
-                            $quiz_time = $row['time'];
-                    ?>
-                    <h1><a class="btn btn-light" href="quiz.php?quiz_id=<?php echo $row['id'] ?>"><?php echo $row['name'] ?></a></h1>
+                            $sql2 = "SELECT * FROM `$quiz_name` WHERE `user_id` = '$_SESSION[user]'";
+                            $result2 = $conn->query($sql2);
+                            if ($result2->num_rows > 0) {
+                                ?>
+                                <a class="btn btn-outline-primary disabled">Start Quiz</a> <span class="badge bg-success">Completed</span>
+                                <?php
+                            } else {
+                                echo '<a href="quiz.php?quiz_id=' . $row['id'] . '" class="btn btn-outline-primary">Start Quiz</a>';
+                            }
+                            ?>
+                            
+
+                        </div>
+                    </div>
                     <?php
-                        }
-                    }   
-                    ?>
-                </div>
-            </div>
+                }
+            }
+            ?>
         </div>
     </div>
 </div>

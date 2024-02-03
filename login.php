@@ -22,6 +22,7 @@ else if (isset($_SESSION['user'])) {
             <form action="admin/handlers/login_handler.php" method="post">
                 <input type="email" name="email" placeholder="Enter Your Email" class="form-control bg-dark text-light mb-3">
                 <input type="password" name="password" placeholder="Enter Your Password" class="form-control bg-dark text-light mb-3">
+                <span class="badge badge-success">Don't have an Account? <a href="register.php">Sign up</a> here</span><br>
                 <button class="btn btn-outline-success" name="submit" type="submit">Sign In</button>
 
             </form>

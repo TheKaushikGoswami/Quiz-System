@@ -45,7 +45,8 @@ if (!isset($_SESSION['admin'])) {
                         </a>
                         <ul class="dropdown-menu bg-dark-subtle">
                             <li><a class="dropdown-item" href="add_quiz.php">Create New Quiz</a></li>
-                            <li><a class="dropdown-item" href="remove_quiz.php">Remove Quiz</a></li>
+                            
+<li><a class="dropdown-item" href="all_quiz.php">All Quiz</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>

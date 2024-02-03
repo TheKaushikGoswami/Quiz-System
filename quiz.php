@@ -44,7 +44,7 @@ for($i = 0; $i < count($pools); $i++) {
 <div class="container-fluid p-0">
     <nav class="navbar navbar-expand-lg col-md-12 navbar-dark bg-dark m-0 ">
     <form class="d-flex" method="post" role="search">
-                    <button class="btn btn-outline-danger" type="submit" name="logout">Logout</button>
+                    <button class="btn btn-outline-danger" type="submit" name="logout" >Logout</button>
                 </form>
     </nav>
 
@@ -53,10 +53,10 @@ for($i = 0; $i < count($pools); $i++) {
             <h1 class="text-center my-4">Quiz Management System</h1>
             <div class="card col-md-6 m-auto bg-dark text-light">
                 <div class="card-header">
-                    <h1 class="text-center"><?php echo $quiz_name ?></h1>
+                    <h1 class="text-center"><?php echo str_replace('_',' ',$quiz_name) ?></h1>
                 </div>
                 <div class="card-body">
-                    <form action="quiz.php?quiz_id=<?php echo $quiz_id ?>" method="post">
+                    <form action="quiz_submit.php?quiz_id=<?php echo $quiz_id ?>" method="post">
                         <?php
                         $i = 1;
                         foreach($questions as $pool => $question) {

@@ -37,7 +37,8 @@ if (!isset($_SESSION['admin'])) {
                         </a>
                         <ul class="dropdown-menu bg-dark-subtle">
                             <li><a class="dropdown-item" href="add_quiz.php">Create New Quiz</a></li>
-                            <li><a class="dropdown-item" href="remove_quiz.php">Remove Quiz</a></li>
+                            
+<li><a class="dropdown-item" href="all_quiz.php">All Quiz</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
@@ -45,14 +46,39 @@ if (!isset($_SESSION['admin'])) {
                         </ul>
                     </li>
                 </ul>
-                <form class="d-flex" role="search">
                     <form class="d-flex" method="post" role="search">
                     <button class="btn btn-outline-danger" type="submit" name="logout">Logout</button>
-                </form>
                 </form>
             </div>
         </div>
     </nav>
+    <div class="container-fluid p-0">
+        <div class="row">
+            <?php
+            $sql = "SELECT * FROM `quiz`";
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+            ?>
+                    <div class="col-md-4">
+                        <div class="card bg-dark text-light m-3">
+                            <div class="card-header">
+                                <h2><?php echo str_replace('_',' ', $row['name']) ?></h2>
+                            </div>
+                            <div class="card-body">
+                                <p><?php echo $row['rules'] ?></p>
+                                <!-- <p><?php echo $row['time'] ?></p> -->
+                                <a href="quiz_details.php?quiz_id=<?php echo $row['id'] ?>" class="btn btn-outline-success">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+            <?php
+                }
+            }
+               ?> 
+        </div>
+    </div>
    
 </div>
 

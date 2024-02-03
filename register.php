@@ -50,6 +50,7 @@ include 'includes/header.php';
         </select>
         <input type="password" name="password" placeholder="Enter Your Password" class="form-control bg-dark text-light mb-2">
         <input type="password" name="cnf_password" placeholder="Confirm Your Password" class="form-control bg-dark text-light mb-2">
+        <span class="badge badge-success">Already have an Account? <a href="login.php">Login</a> here</span><br>
         <div class="d-flex justify-content-end">
           <input type="submit" name="submit" value="Register" class="btn btn-outline-success"> 
         </div> 

@@ -7,47 +7,24 @@ include '../includes/header.php';
 include 'config/config.php';
 
 
-
 if (!isset($_SESSION['admin'])) {
     header('location: ../login.php');
 }
 
-if (isset($_POST['submit'])) {
-    $name = $_POST['name'];
-    $description = $_POST['description'];
+$quiz_id = $_SERVER['QUERY_STRING'];
+$quiz_id = substr($quiz_id, 8);
 
-    // if $name contains space replace space with underscore
+$sql = "SELECT `name` FROM `quiz` WHERE `id` = '$quiz_id'";
+$result = $conn->query($sql);
 
-    $name = str_replace(' ', '_', $name);
+$row = $result->fetch_assoc();
 
-    $sql = "CREATE TABLE `$name` (
-        `id` int(11) NOT NULL AUTO_INCREMENT,
-        `question` varchar(255) NOT NULL,
-        `option1` varchar(255) NOT NULL,
-        `option2` varchar(255) NOT NULL,
-        `option3` varchar(255) NOT NULL,
-        `option4` varchar(255) NOT NULL,
-        `answer` varchar(255) NOT NULL,
-        PRIMARY KEY (`id`)
-      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+$quiz_name = $row['name'];
 
-    $sql2 = "INSERT INTO `question_pools` (`name`, `description`) VALUES ('$name', '$description')";
 
-    if ($conn->query($sql) === TRUE) {
-        $conn->query($sql2);
-        echo '<script>alert("Question Pool Added Successfully")</script>';
-    } else {
-        echo '<script>alert("Failed to Add Question Pool")</script>';
-    }
-}
 
 ?>
 
-<style>
-    input::placeholder,textarea::placeholder{
-        color: grey!important;
-    }
-</style>
 <div class="container-fluid p-0">
     <nav class="navbar navbar-expand-md navbar-dark bg-dark m-0">
         <div class="container-fluid">
@@ -87,24 +64,57 @@ if (isset($_POST['submit'])) {
             </div>
         </div>
     </nav>
-    <div class="container">
-        <div class="card col-md-8 bg-dark text-light m-auto mt-3">
+    <div class="container-fluid p-0">
+        
+        <div class="card bg-dark text-light col-md-8 m-auto mt-5">
             <div class="card-header">
-                <h1 class="mb-0">Add New Question Pool</h1>
+                <h1 class="text-center"><?php echo strtoupper(str_replace('_',' ',$quiz_name)); ?></h1>
             </div>
             <div class="card-body">
-                <form class="" action="" method="post">
-                    <label for="name">Subject</label>
-                    <input type="text" class="form-control bg-dark text-light mb-3" name="name" id="name" placeholder="Enter Subject Name">
-                    <label for="name">Description</label>
-                    <textarea class="form-control bg-dark text-light mb-3" name="description" id="description" cols="30" rows="10" placeholder="Enter Description"></textarea>
-                    <div class="d-flex justify-content-end">
-                        <button class="btn btn-outline-light col-md-1" type="submit" name="submit">Add</button>
-                    </div>
-                </form>
+                <table class="table table-dark bg-dark text-light col-md-5 m-auto">
+                    <thead>
+                        <tr>
+                            <th scope="col">S.No</th>
+                            <th scope="col">Roll No</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Marks</th>
+                            <th scope="col">Marks Per Pool</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $sql = "SELECT * FROM `$quiz_name`";
+                        $result = $conn->query($sql);
+
+                        if ($result->num_rows > 0) {
+                            $i = 1;
+                            while ($row = $result->fetch_assoc()) {
+                        ?>
+                                <tr>
+                                    <th scope="row"><?php echo $i; ?></th>
+                                    <td><?php echo $row['user_id']; ?></td>
+                                    <td><?php 
+                                    $user_id = $row['user_id'];
+                                    $sql1 = "SELECT `name` FROM `users` WHERE `roll_no` = '$user_id'";
+                                    $name = $conn->query($sql1); // Corrected variable name
+                                    $user_name = $name->fetch_assoc();
+                                    echo $user_name['name'];
+                                    ?></td>
+                                    <td><?php echo $row['marks']; ?>%</td>
+                                    <td>feature will be added soon</td>
+                                </tr>
+                        <?php
+                                $i++;
+                            }
+                        }
+                        ?>
+                    </tbody>
+                    
+                </table>
             </div>
         </div>
     </div>
+   
 </div>
 
 <?php
