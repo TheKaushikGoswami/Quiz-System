@@ -53,7 +53,7 @@ if (!isset($_SESSION['admin'])) {
         </div>
     </nav>
     <div class="container-fluid p-0">
-        <div class="row">
+        <div class="row d-flex justify-content-center">
             <?php
             $sql = "SELECT * FROM `quiz`";
             $result = $conn->query($sql);
@@ -61,8 +61,7 @@ if (!isset($_SESSION['admin'])) {
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
             ?>
-                    <div class="col-md-4">
-                        <div class="card bg-dark text-light m-3">
+                        <div class="card bg-dark text-light m-3" style="width:20rem">
                             <div class="card-header">
                                 <h2><?php echo str_replace('_',' ', $row['name']) ?></h2>
                             </div>
@@ -72,7 +71,6 @@ if (!isset($_SESSION['admin'])) {
                                 <a href="quiz_details.php?quiz_id=<?php echo $row['id'] ?>" class="btn btn-outline-success">View Details</a>
                             </div>
                         </div>
-                    </div>
             <?php
                 }
             }
