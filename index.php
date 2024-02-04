@@ -52,12 +52,14 @@ if (isset($_POST['logout'])) {
                             else if ($row['start'] > date('Y-m-d H:i:s')) {
                                 echo '<a class="btn btn-outline-primary disabled">Start Quiz</a> <span class="badge bg-warning">Not Started</span>';
                             }
+                            else if(strtotime($row['start'] . ' + ' . $row['time'] . ' minutes') < strtotime(date('Y-m-d H:i:s'))) {
+                                echo '<a class="btn btn-outline-primary disabled">Start Quiz</a> <span class="badge bg-danger">Time Over</span>';
+                            }
                             else {
                                 echo '<a href="quiz.php?quiz_id=' . $row['id'] . '" class="btn btn-outline-primary">Start Quiz</a>';
                             }
                             ?>
                             
-
                         </div>
                     </div>
                     <?php
