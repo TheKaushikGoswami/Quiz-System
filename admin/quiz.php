@@ -1,9 +1,5 @@
 <?php
 
-
-
-
-
 include_once "config/config.php";
 // include "add_quiz.php";
 
@@ -31,10 +27,6 @@ if(isset($_POST['submit'])) {
     $quiz_rules = $_POST['quiz_rules'];
     $quiz_time = $_POST['quiz_time'];
     $quiz_start = $_POST['quiz_start'];
-
-    // echo $pools . '<br>';
-    // echo $num_questions . '<br>';
-    // echo $total_ques . '<br>';
 
     $quiz_table = "CREATE TABLE `$quiz_name` (
         `id` INT(11) NOT NULL AUTO_INCREMENT,

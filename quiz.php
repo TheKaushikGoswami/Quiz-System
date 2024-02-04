@@ -44,8 +44,8 @@ for($i = 0; $i < count($pools); $i++) {
 <div class="container-fluid p-0">
     <nav class="navbar navbar-expand-lg col-md-12 navbar-dark bg-dark m-0 ">
     <form class="d-flex" method="post" role="search">
-                    <button class="btn btn-outline-danger" type="submit" name="logout" >Logout</button>
-                </form>
+        <button class="btn btn-outline-danger" type="submit" name="logout" >Logout</button>
+    </form>
     </nav>
 
     <div class="row">

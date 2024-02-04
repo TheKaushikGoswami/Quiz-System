@@ -1,9 +1,5 @@
 <?php
 
-
-
-
-
 include 'includes/header.php';
 include 'admin/config/config.php';
 
@@ -33,12 +29,12 @@ if (isset($_POST['logout'])) {
         <div class="col-md-12">
             <h1 class="text-center my-4">Active Quizes</h1>
             <?php
-            $sql = "SELECT * FROM `quiz` where `start` > NOW()+ INTERVAL 2 HOUR";
+            $sql = "SELECT * FROM `quiz` WHERE `start` < NOW() + INTERVAL 2 HOUR";
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     ?>
-                    <div class="card m-auto bg-dark text-light" style="width:18rem">
+                    <div class="card m-auto bg-dark text-light mb-2" style="width:18rem">
                         <div class="card-header">
                             <h2><?php echo $row['name'] ?></h2>
                         </div>
@@ -52,7 +48,11 @@ if (isset($_POST['logout'])) {
                                 ?>
                                 <a class="btn btn-outline-primary disabled">Start Quiz</a> <span class="badge bg-success">Completed</span>
                                 <?php
-                            } else {
+                            }
+                            else if ($row['start'] > date('Y-m-d H:i:s')) {
+                                echo '<a class="btn btn-outline-primary disabled">Start Quiz</a> <span class="badge bg-warning">Not Started</span>';
+                            }
+                            else {
                                 echo '<a href="quiz.php?quiz_id=' . $row['id'] . '" class="btn btn-outline-primary">Start Quiz</a>';
                             }
                             ?>
@@ -62,6 +62,9 @@ if (isset($_POST['logout'])) {
                     </div>
                     <?php
                 }
+            }
+            else{
+                echo "<div class='alert alert-danger text-center'>No active quizes</div>";
             }
             ?>
         </div>

@@ -4,6 +4,9 @@ $host = 'localhost';
 $user = 'root';
 $pass = '';
 $db = 'quiz_system';
+$tz = 'Asia/Kolkata';
+
+date_default_timezone_set($tz);
 
 $conn = new mysqli($host, $user, $pass, $db);
 
