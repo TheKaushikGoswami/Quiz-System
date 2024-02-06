@@ -48,13 +48,13 @@ if (isset($_POST['submit'])) {
                 $mail->Port = 587; // TCP port to connect to
     
                 //Recipients
-                $mail->setFrom('verify.email.geetauniversity@gmail.com', 'Mailer');
+                $mail->setFrom('verify.email.geetauniversity@gmail.com', 'Geeta University');
                 $mail->addAddress($email, $name); // Add a recipient, Name is optional
     
                 //Content
                 $mail->isHTML(true); // Set email format to HTML
                 $mail->Subject = 'Email Verification';
-                $mail->Body    = 'Click <a href="http://localhost/quiz-system/admin/handlers/verify_email.php?token=' . $token . '">here</a> to verify your email.';
+                $mail->Body    = 'Click <a href="http://localhost/quiz-system/admin/handlers/verify_email.php?token=' . $token . '">here</a> to verify your email for Quiz System.';
                 $mail->AltBody = 'Click here to verify your email: http://localhost/quiz-system/admin/handlers/verify_email.php?token=' . $token;
     
                 $mail->send();
