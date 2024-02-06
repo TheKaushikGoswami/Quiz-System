@@ -1,6 +1,12 @@
 <?php
 
-include '../config/config.php';
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require '../config/config.php';
+require '../../vendor/autoload.php';
+require '../../vendor/PHPMailer/PHPMailer/src/PHPMailer.php';
+require '../../vendor/PHPMailer/PHPMailer/src/SMTP.php';
 
 if (isset($_POST['submit'])) {
     $roll = $_POST['roll'];
@@ -28,15 +34,33 @@ if (isset($_POST['submit'])) {
         $result = $conn->query($sql);
 
         if ($result === TRUE) {
-            // Send email to the user using Brevo API
-            $subject = "Email Verification";
-            $body = "Hi, $name. Click here to verify your email: http://localhost/quiz-app/admin/handlers/verify_email.php?token=$token";
-            $headers = "From: Geeta University";
+            // Send verification email using Gmail SMTP
+            $mail = new PHPMailer(true); // Passing `true` enables exceptions
 
-            if (mail($email, $subject, $body, $headers)) {
-                echo "<script>alert('User registered successfully! Please verify your email to login.');</script>";
-            } else {
-                echo "<script>alert('Failed to send email!');</script>";
+            try {
+                //Server settings
+                $mail->isSMTP(); // Set mailer to use SMTP
+                $mail->Host = 'smtp.gmail.com'; // Specify main and backup SMTP servers
+                $mail->SMTPAuth = true; // Enable SMTP authentication
+                $mail->Username = 'verify.email.geetauniversity@gmail.com'; // SMTP username
+                $mail->Password = 'my_password_here'; // SMTP password
+                $mail->SMTPSecure = 'tls'; // Enable TLS encryption, `ssl` also accepted
+                $mail->Port = 587; // TCP port to connect to
+    
+                //Recipients
+                $mail->setFrom('verify.email.geetauniversity@gmail.com', 'Mailer');
+                $mail->addAddress($email, $name); // Add a recipient, Name is optional
+    
+                //Content
+                $mail->isHTML(true); // Set email format to HTML
+                $mail->Subject = 'Email Verification';
+                $mail->Body    = 'Click <a href="http://localhost/quiz-system/admin/handlers/verify_email.php?token=' . $token . '">here</a> to verify your email.';
+                $mail->AltBody = 'Click here to verify your email: http://localhost/quiz-system/admin/handlers/verify_email.php?token=' . $token;
+    
+                $mail->send();
+                echo '<script>alert("Verification email sent to your email address. Please verify your email to login.");window.location.href="../../login.php";</script>';
+            } catch (Exception $e) {
+                echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
             }
         }
         else {

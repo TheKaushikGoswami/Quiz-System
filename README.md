@@ -5,6 +5,8 @@ Discover the magic where innovation meets education, as we present a platform de
 ##
 ### **Key Features:**
 
+<!-- mgiq mhvo jdcp saqn -->
+
 - 🔄 **Dynamic Question Shuffling for Varied Assessments:** At the heart of our system lies the capability to create a truly diverse and engaging quiz experience. No longer will users encounter the predictability of fixed question sequences. Our platform dynamically shuffles the order of questions, ensuring that each attempt feels like a fresh challenge. This not only keeps users on their toes but also encourages deeper comprehension as they navigate through a varied set of topics.
 
 - 🔀 **Option Randomization Enhances Critical Thinking:** Elevating the quiz-taking experience, we take randomization a step further by shuffling the options for each question. By doing so, our system ensures that the correct answer isn't consistently placed in a particular position. This thoughtful design promotes genuine critical thinking and understanding, as users must carefully consider and evaluate all options, leading to a more comprehensive grasp of the material.

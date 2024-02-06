@@ -1,7 +1,5 @@
 <?php
 
-
-
 include '../config/config.php';
 
 
@@ -15,11 +13,21 @@ if (isset($_POST['submit'])) {
     if ($result->num_rows > 0) {
         foreach($result as $row){
             if ($row['admin'] == 1) {
-                $_SESSION['admin'] = $row['roll_no'];
-                echo "<script>alert('Logged in successfully!'); window.location.href='../index.php';</script>";
+                if ($row['status'] == 0) {
+                    echo "<script>alert('Email not verified!');window.location.href='../../login.php'</script>";
+                }
+                else{
+                    $_SESSION['admin'] = $row['roll_no'];
+                    echo "<script>alert('Logged in successfully!'); window.location.href='../index.php';</script>";
+                }
             } else {
-                $_SESSION['user'] = $row['roll_no'];
-                echo "<script>alert('Logged in successfully!'); window.location.href='../../index.php';</script>";
+                if ($row['status'] == 0) {
+                    echo "<script>alert('Email not verified!');window.location.href='../../login.php'</script>";
+                }
+                else{
+                    $_SESSION['user'] = $row['roll_no'];
+                    echo "<script>alert('Logged in successfully!'); window.location.href='../../index.php';</script>";
+                }
             }
         }
     } else {

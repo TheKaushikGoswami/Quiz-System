@@ -40,8 +40,7 @@ if(isset($_POST['submit'])) {
     $result = $conn->query($sql);
     if($result) {
         $conn->query($quiz_table);
-        echo "<script>alert('Quiz added successfully');window.location.href='add_quiz.php'
-        </script>";
+        echo "<script>alert('Quiz added successfully');window.location.href='add_quiz.php'</script>";
     } else {
         echo $conn->error;
     }
