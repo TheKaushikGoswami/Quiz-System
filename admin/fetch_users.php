@@ -23,4 +23,5 @@ if(isset($_POST['course']) && isset($_POST['year'])) {
     echo "No data received.";
 }
 
+
 ?>
