@@ -20,6 +20,9 @@ $result = $conn->query($sql);
 while ($row = $result->fetch_assoc()) {
     $quiz_name = $row['name'];
     $allocated_to = $row['allocated_to'];
+    if($allocated_to == '')
+        $allocated_to = null;
+    else
     $allocated_to = explode(',', $allocated_to);
 }
 
@@ -132,21 +135,23 @@ while ($row = $result->fetch_assoc()) {
                     </thead>
                     <tbody>
                         <?php 
-                        foreach ($allocated_to as $roll_no) {
-                            $sql = "SELECT * FROM `users` WHERE `roll_no` = '$roll_no'";
-                            $result = $conn->query($sql);
-                            $i = 1;
-                            $row = $result->fetch_assoc();
-                        ?>
-                            <tr>
-                                <th scope="row"><?php echo $i; ?></th>
-                                <td><?php echo $row['roll_no']; ?></td>
-                                <td><?php echo $row['name']; ?></td>
-                                <td><?php echo $row['course']; ?></td>
-                                <td><?php echo $row['year']; ?></td>
-                            </tr>
-                        <?php
-                            $i++;
+                        if($allocated_to != null){
+                            foreach ($allocated_to as $roll_no) {
+                                $sql = "SELECT * FROM `users` WHERE `roll_no` = '$roll_no'";
+                                $result = $conn->query($sql);
+                                $i = 1;
+                                $row = $result->fetch_assoc();
+                            ?>
+                                <tr>
+                                    <th scope="row"><?php echo $i; ?></th>
+                                    <td><?php echo $row['roll_no']; ?></td>
+                                    <td><?php echo $row['name']; ?></td>
+                                    <td><?php echo $row['course']; ?></td>
+                                    <td><?php echo $row['year']; ?></td>
+                                </tr>
+                            <?php
+                                $i++;
+                            }
                         }
                         ?>
 
