@@ -27,6 +27,10 @@ if(isset($_POST['submit'])) {
     $quiz_rules = $_POST['quiz_rules'];
     $quiz_time = $_POST['quiz_time'];
     $quiz_start = $_POST['quiz_start'];
+    $allocated_to_users = $_POST['allotment'];
+    if (is_array($allocated_to_users)) {
+        $allocated_to_users = implode(',', $allocated_to_users);
+    } 
 
     $quiz_table = "CREATE TABLE `$quiz_name` (
         `id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -36,7 +40,7 @@ if(isset($_POST['submit'])) {
         PRIMARY KEY (`id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
 
-    $sql = "INSERT INTO `quiz` (`name`, `rules`, `time`, `pools`, `ques_per_pool`, `total_ques`, `start`) VALUES ('$quiz_name', '$quiz_rules', '$quiz_time', '$pools', '$num_questions', '$total_ques', '$quiz_start')";
+    $sql = "INSERT INTO `quiz` (`name`, `rules`, `time`, `pools`, `ques_per_pool`, `total_ques`, `start`, `allocated_to`) VALUES ('$quiz_name', '$quiz_rules', '$quiz_time', '$pools', '$num_questions', '$total_ques', '$quiz_start', '$allocated_to_users')";
     $result = $conn->query($sql);
     if($result) {
         $conn->query($quiz_table);

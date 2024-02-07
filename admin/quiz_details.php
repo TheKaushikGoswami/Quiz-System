@@ -14,12 +14,14 @@ if (!isset($_SESSION['admin'])) {
 $quiz_id = $_SERVER['QUERY_STRING'];
 $quiz_id = substr($quiz_id, 8);
 
-$sql = "SELECT `name` FROM `quiz` WHERE `id` = '$quiz_id'";
+$sql = "SELECT * FROM `quiz` WHERE `id` = '$quiz_id'";
 $result = $conn->query($sql);
 
-$row = $result->fetch_assoc();
-
-$quiz_name = $row['name'];
+while ($row = $result->fetch_assoc()) {
+    $quiz_name = $row['name'];
+    $allocated_to = $row['allocated_to'];
+    $allocated_to = explode(',', $allocated_to);
+}
 
 
 
@@ -108,6 +110,46 @@ $quiz_name = $row['name'];
                             }
                         }
                         ?>
+                    </tbody>
+                    
+                </table>
+            </div>
+        </div>
+        <div class="card bg-dark text-light col-md-8 m-auto mt-5">
+            <div class="card-header">
+                <h1 class="text-center">Quiz Allocated to Students</h1>
+            </div>
+            <div class="card-body">
+                <table class="table table-dark bg-dark text-light col-md-5 m-auto">
+                    <thead>
+                        <tr>
+                            <th scope="col">S.No</th>
+                            <th scope="col">Roll No</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Course</th>
+                            <th scope="col">Year</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php 
+                        foreach ($allocated_to as $roll_no) {
+                            $sql = "SELECT * FROM `users` WHERE `roll_no` = '$roll_no'";
+                            $result = $conn->query($sql);
+                            $i = 1;
+                            $row = $result->fetch_assoc();
+                        ?>
+                            <tr>
+                                <th scope="row"><?php echo $i; ?></th>
+                                <td><?php echo $row['roll_no']; ?></td>
+                                <td><?php echo $row['name']; ?></td>
+                                <td><?php echo $row['course']; ?></td>
+                                <td><?php echo $row['year']; ?></td>
+                            </tr>
+                        <?php
+                            $i++;
+                        }
+                        ?>
+
                     </tbody>
                     
                 </table>

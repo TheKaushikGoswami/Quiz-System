@@ -33,6 +33,13 @@ if (isset($_POST['logout'])) {
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
+                    // check if the quiz is allocated to the user or not
+                    $allocated_to = explode(',', $row['allocated_to']);
+                    // echo '<pre>';
+                    // print_r($allocated_to);
+                    if (!in_array($_SESSION['user'], $allocated_to)) {
+                        continue;
+                    }
                     ?>
                     <div class="card m-auto bg-dark text-light mb-2" style="width:18rem">
                         <div class="card-header">

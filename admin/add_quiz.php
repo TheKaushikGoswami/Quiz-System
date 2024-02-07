@@ -174,11 +174,14 @@ if (!isset($_SESSION['admin'])) {
             <option value="3rd">3rd Year</option>
             <option value="4th">4th Year</option>
           </select>
+          <div class="d-flex justify-content-end">
+            <button class="btn btn-outline-primary" onclick="event.preventDefault();checkAll()">All</button>
+          </div>
           <div id="users-div"></div>
 
           <div class="d-flex justify-content-end">
             <button
-              class="btn btn-outline-light col-md-1"
+              class="btn col-md-2 btn-outline-success col-md-1"
               type="submit"
               name="submit"
             >
@@ -250,6 +253,17 @@ if (!isset($_SESSION['admin'])) {
             `;
             subjectsDiv.appendChild(subjectDiv);
         }
+    }
+
+    function checkAll() {
+        let checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(checkbox => {
+            if (checkbox.checked == false) {
+                checkbox.checked = true;
+            } else {
+                checkbox.checked = false;
+            }
+        });
     }
   </script>
 </div>

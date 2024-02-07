@@ -42,13 +42,13 @@ if (isset($_POST['submit'])) {
                 $mail->isSMTP(); // Set mailer to use SMTP
                 $mail->Host = 'smtp.gmail.com'; // Specify main and backup SMTP servers
                 $mail->SMTPAuth = true; // Enable SMTP authentication
-                $mail->Username = 'verify.email.geetauniversity@gmail.com'; // SMTP username
-                $mail->Password = 'my_password_here'; // SMTP password
+                $mail->Username = 'humanshujaglan@gmail.com'; // SMTP username
+                $mail->Password = 'rdqm qoza quuu gnbr'; // SMTP password
                 $mail->SMTPSecure = 'tls'; // Enable TLS encryption, `ssl` also accepted
                 $mail->Port = 587; // TCP port to connect to
     
                 //Recipients
-                $mail->setFrom('verify.email.geetauniversity@gmail.com', 'Geeta University');
+                $mail->setFrom('humanshujaglan@gmail.com', 'Geeta University');
                 $mail->addAddress($email, $name); // Add a recipient, Name is optional
     
                 //Content
