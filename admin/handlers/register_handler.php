@@ -8,6 +8,9 @@ require '../../vendor/autoload.php';
 require '../../vendor/PHPMailer/PHPMailer/src/PHPMailer.php';
 require '../../vendor/PHPMailer/PHPMailer/src/SMTP.php';
 
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../..');
+$dotenv->load();
+
 if (isset($_POST['submit'])) {
     $roll = $_POST['roll'];
     $name = $_POST['name'];
@@ -42,13 +45,13 @@ if (isset($_POST['submit'])) {
                 $mail->isSMTP(); // Set mailer to use SMTP
                 $mail->Host = 'smtp.gmail.com'; // Specify main and backup SMTP servers
                 $mail->SMTPAuth = true; // Enable SMTP authentication
-                $mail->Username = 'humanshujaglan@gmail.com'; // SMTP username
-                $mail->Password = 'rdqm qoza quuu gnbr'; // SMTP password
+                $mail->Username = $_ENV['MAIL_USERNAME']; // SMTP username
+                $mail->Password = $_ENV['MAIL_PASSWORD']; // SMTP password
                 $mail->SMTPSecure = 'tls'; // Enable TLS encryption, `ssl` also accepted
                 $mail->Port = 587; // TCP port to connect to
     
                 //Recipients
-                $mail->setFrom('humanshujaglan@gmail.com', 'Geeta University');
+                $mail->setFrom($_ENV['MAIL_USERNAME'], 'Geeta University');
                 $mail->addAddress($email, $name); // Add a recipient, Name is optional
     
                 //Content

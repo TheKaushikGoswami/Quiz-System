@@ -1,8 +1,5 @@
 <?php
 
-
-
-
 include '../includes/header.php';
 include 'config/config.php';
 
