@@ -33,7 +33,7 @@ if (isset($_POST['submit'])) {
         $token = bin2hex(random_bytes(50));
 
         // Insert user data along with the token and set email verification to false
-        $sql = "INSERT INTO `users` (`roll_no`, `name`, `email`, `course`, `year`, `semester`, `password`, `token`) VALUES ('$roll', '$name', '$email', '$course', '$year', '$semester', '$password', '$token')";
+        $sql = "INSERT INTO `users` (`roll_no`, `name`, `email`, `course`, `year`, `password`, `token`) VALUES ('$roll', '$name', '$email', '$course', '$year', '$password', '$token')";
         $result = $conn->query($sql);
 
         if ($result === TRUE) {

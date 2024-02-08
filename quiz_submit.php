@@ -17,6 +17,9 @@ if(isset($_POST['submit'])) {
     $score = 0;
     for($i = 1; $i <= $total_questions; $i++) {
         $ques = $_POST['ques'.$i];
+        if($ques == '' || $ques == null) {
+            continue;
+        }
         $ans = $_POST['ans'.$i];
 
         if($ques == $ans) {
