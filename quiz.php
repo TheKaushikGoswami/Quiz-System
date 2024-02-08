@@ -3,13 +3,40 @@
 include 'includes/header.php';
 include 'admin/config/config.php';
 
-if(isset($_POST['logout'])){
-    session_destroy();
+if(!isset($_SESSION['user'])) {
     header('location: login.php');
+    exit;
 }
 
-$quiz_id = $_SERVER['QUERY_STRING'];
-$quiz_id = substr($quiz_id, 8);
+$quiz_id = isset($_GET['quiz_id']) ? $_GET['quiz_id'] : '';
+if(!$quiz_id) {
+    header('location: index.php');
+    exit;
+}
+
+// Validate if quiz is accessible
+$sql = "SELECT * FROM `quiz` WHERE `id` = '$quiz_id'";
+$result = $conn->query($sql);
+if($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $currentTime = strtotime(date('Y-m-d H:i:s'));
+    $startTime = strtotime($row['start']);
+    $endTime = strtotime($row['start'] . ' + ' . $row['time'] . ' minutes');
+    
+    $quizName = $row['name'];
+    $sql2 = "SELECT * FROM `$quizName` WHERE `user_id` = '".$_SESSION['user']."'";
+    $result2 = $conn->query($sql2);
+    $completed = $result2->num_rows > 0;
+    
+    if($currentTime < $startTime || $currentTime > $endTime || $completed) {
+        header('location: index.php');
+        exit;
+    }
+} else {
+    // If no such quiz exists
+    header('location: index.php');
+    exit;
+}
 
 $sql = "SELECT * FROM `quiz` WHERE `id` = '$quiz_id'";
 $result = $conn->query($sql);
