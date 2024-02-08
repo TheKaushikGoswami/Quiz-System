@@ -1,12 +1,7 @@
 <?php
 
-
-
-
 include '../includes/header.php';
 include 'config/config.php';
-
-
 
 if (!isset($_SESSION['admin'])) {
     header('location: ../login.php');

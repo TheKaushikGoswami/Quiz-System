@@ -1,9 +1,5 @@
 <?php
 
-
-
-
-
 include 'config/config.php';
 include 'pools.php';
 
