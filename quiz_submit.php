@@ -32,7 +32,6 @@ $final_score = ($score / $total_questions) * 100;
 // want to store also the two points after the decimal
 $final_score = number_format($final_score, 2);
 
-
 $sql = "INSERT INTO `$quiz_name` (`user_id`, `marks`, `marks_per_pool`) VALUES ('{$_SESSION['user']}', '$final_score', '')";
 
 $result = $conn->query($sql);
