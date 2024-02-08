@@ -3,7 +3,6 @@
 include '../includes/header.php';
 include 'config/config.php';
 
-
 if (!isset($_SESSION['admin'])) {
     header('location: ../login.php');
 }
@@ -22,8 +21,6 @@ while ($row = $result->fetch_assoc()) {
     else
     $allocated_to = explode(',', $allocated_to);
 }
-
-
 
 ?>
 

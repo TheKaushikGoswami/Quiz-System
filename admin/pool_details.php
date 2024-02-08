@@ -1,8 +1,5 @@
 <?php
 
-
-
-
 include "../includes/header.php";
 include 'config/config.php';
 
@@ -20,8 +17,6 @@ $pool_name = $row['name'];
 
 $sql = "SELECT * FROM `$pool_name`";
 $result = $conn->query($sql);
-
-
 
 ?>
 

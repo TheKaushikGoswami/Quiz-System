@@ -1,7 +1,6 @@
 <?php
 
 include_once "config/config.php";
-// include "add_quiz.php";
 
 if (!isset($_SESSION['admin'])) {
     header('location: ../login.php');
