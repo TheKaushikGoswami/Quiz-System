@@ -109,7 +109,7 @@ $result = $conn->query($sql);
                             </p>
                             <div class="buttons d-flex justify-content-between">
                                 <a href="pool_details.php?pool_id=<?php echo $row['id'] ?>" class="btn btn-outline-light">View Details</a>
-                                <a href="#" class="btn btn-outline-danger" onclick="deletePool('<?php echo $row["name"]; ?>')">Delete Pool</a>
+                                <a href="#" class="btn btn-outline-danger" onclick="deletePool('<?php echo str_replace('_', ' ', $row["name"]); ?>')">Delete Pool</a>
                             </div>
                         </div>
                     </div>

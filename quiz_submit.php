@@ -3,6 +3,7 @@
 error_reporting(E_ALL & ~E_WARNING);
 ini_set('display_errors', 1);
 
+include 'includes/header.php';
 include 'admin/config/config.php';
 
 $quiz_id = $_SERVER['QUERY_STRING'];
@@ -33,15 +34,24 @@ if(isset($_POST['submit'])) {
 }
 
 $final_score = ($score / $total_questions) * 100;
-// want to store also the two points after the decimal
 $final_score = number_format($final_score, 2);
 
-$sql = "INSERT INTO `$quiz_name` (`user_id`, `marks`, `marks_per_pool`) VALUES ('{$_SESSION['user']}', '$final_score', '')";
+$sql = "INSERT INTO `$quiz_name` (`user_id`, `marks`, `percentage`) VALUES ('{$_SESSION['user']}', '$score', '$final_score')";
 
 $result = $conn->query($sql);
 
 if($result) {
-    echo "<script>alert('Quiz submitted successfully');window.location.href='index.php';</script>";
+    echo "<div class='alert m-auto col-md-6 alert-danger d-flex align-items-center alert-dismissible fade show' role='alert' style='height:20vh'>
+        <h1 class='text-center'>Quiz Submitted Successfully</h1>
+  <button type='button' onclick='backto()' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+</div>
+    <script> function backto() {
+        window.location.href='index.php';
+    }
+    </script>
+    ";
 } else {
     echo $conn->error;
 }
+
+include 'includes/footer.php';

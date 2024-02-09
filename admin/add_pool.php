@@ -30,7 +30,7 @@ if (isset($_POST['submit'])) {
 
     if ($conn->query($sql) === TRUE) {
         $conn->query($sql2);
-        echo '<script>alert("Question Pool Added Successfully")</script>';
+        echo '<script>alert("Question Pool Added Successfully");window.location.href="pools.php"</script>';
     } else {
         echo '<script>alert("Failed to Add Question Pool")</script>';
     }

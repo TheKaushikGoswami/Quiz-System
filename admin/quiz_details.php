@@ -76,8 +76,8 @@ while ($row = $result->fetch_assoc()) {
                             <th scope="col">S.No</th>
                             <th scope="col">Roll No</th>
                             <th scope="col">Name</th>
-                            <th scope="col">Marks</th>
-                            <th scope="col">Marks Per Pool</th>
+                            <th scope="col">No of Questions attempted</th>
+                            <th scope="col">Percentage</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -99,8 +99,8 @@ while ($row = $result->fetch_assoc()) {
                                     $user_name = $name->fetch_assoc();
                                     echo $user_name['name'];
                                     ?></td>
-                                    <td><?php echo $row['marks']; ?>%</td>
-                                    <td>feature will be added soon</td>
+                                    <td><?php echo $row['marks']; ?></td>
+                                    <td><?php echo $row['percentage']; ?>%</td>
                                 </tr>
                         <?php
                                 $i++;
@@ -130,6 +130,7 @@ while ($row = $result->fetch_assoc()) {
                     <tbody>
                         <?php 
                         if($allocated_to != null){
+                            $j = 1;
                             foreach ($allocated_to as $roll_no) {
                                 $sql = "SELECT * FROM `users` WHERE `roll_no` = '$roll_no'";
                                 $result = $conn->query($sql);
@@ -137,14 +138,14 @@ while ($row = $result->fetch_assoc()) {
                                 $row = $result->fetch_assoc();
                             ?>
                                 <tr>
-                                    <th scope="row"><?php echo $i; ?></th>
+                                    <th scope="row"><?php echo $j; ?></th>
                                     <td><?php echo $row['roll_no']; ?></td>
                                     <td><?php echo $row['name']; ?></td>
                                     <td><?php echo $row['course']; ?></td>
                                     <td><?php echo $row['year']; ?></td>
                                 </tr>
                             <?php
-                                $i++;
+                                $j++;
                             }
                         }
                         ?>

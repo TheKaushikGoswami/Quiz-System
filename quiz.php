@@ -76,13 +76,13 @@ for($i = 0; $i < count($pools); $i++) {
     </form>
     </nav>
 
-    <div class="row">
-        <h2 class="text-center m-auto my-5"><span id="time" style="width:200px;font-size:50px;text-align:center" class="badge bg-success rounded-pill"></span></h2>
+    <div class="row" style="position:fixed;z-index:2000;top:10px;right:0">
+        <h2 class="text-center m-auto my-5"><span id="time" style="width:130px;font-size:30px;text-align:center" class="badge bg-success rounded-pill"></span></h2>
     </div>
 
     <div class="row">
         <div class="col-md-12">
-            <div class="card col-md-6 m-auto bg-dark text-light">
+            <div class="card col-md-6 m-auto mt-5 bg-dark text-light">
                 <div class="card-header">
                     <h1 class="text-center"><?php echo str_replace('_',' ',$quiz_name) ?></h1>
                 </div>
@@ -93,12 +93,12 @@ for($i = 0; $i < count($pools); $i++) {
                         foreach($questions as $pool => $question) {
                             foreach($question as $ques) {
                                 echo '<div class="form-group mb-5">';
-                                echo '<h3>' . $i . " " . $ques['question'] . '</h3>';
+                                echo '<h3>' . $i . ". " . $ques['question'] . '</h3>';
                                 echo '<div class="form-check">';
-                                echo '<input type="radio" class="my-2" name="ques'. $i .'" value="' . $ques['option1'] . '"> ' . $ques['option1'] . '<br>';
-                                echo '<input type="radio" class="my-2" name="ques'. $i .'" value="' . $ques['option2'] . '"> ' . $ques['option2'] . '<br>';
-                                echo '<input type="radio" class="my-2" name="ques'. $i .'" value="' . $ques['option3'] . '"> ' . $ques['option3'] . '<br>';
-                                echo '<input type="radio" class="my-2" name="ques'. $i .'" value="' . $ques['option4'] . '"> ' . $ques['option4'] . '<br>';
+                                echo '<label style="font-size:20px"><input type="radio" class="my-2" name="ques'. $i .'" value="' . $ques['option1'] . '"> ' . $ques['option1'] . '</label><br>';
+                                echo '<label style="font-size:20px"><input type="radio" class="my-2" name="ques'. $i .'" value="' . $ques['option2'] . '"> ' . $ques['option2'] . '</label><br>';
+                                echo '<label style="font-size:20px"><input type="radio" class="my-2" name="ques'. $i .'" value="' . $ques['option3'] . '"> ' . $ques['option3'] . '</label><br>';
+                                echo '<label style="font-size:20px"><input type="radio" class="my-2" name="ques'. $i .'" value="' . $ques['option4'] . '"> ' . $ques['option4'] . '</label><br>';
                                 echo '<input type="hidden" name="ans'. $i .'" value="' . $ques['answer'] . '">';
                                 echo '</div>';
                                 echo '</div>';

@@ -15,6 +15,20 @@ if (isset($_POST['submit'])) {
     $roll = $_POST['roll'];
     $name = $_POST['name'];
     $email = $_POST['email'];
+    $em_check = "SELECT * FROM `users` WHERE `email` = '$email'";
+    $em_result = $conn->query($em_check);
+    if ($em_result->num_rows > 0) {
+        echo "
+        <div class='alert m-auto col-md-6 alert-danger d-flex align-items-center alert-dismissible fade show' role='alert' style='height:20vh'>
+            <h1 class='text-center'>This email is already registered. Please use different email id</h1>
+            <button type='button' onclick='backto()' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+        </div>
+        <script> function backto() {
+            window.location.href='../../login.php';
+        }
+        </script>
+        ";
+    }
     $course = $_POST['course'];
     $year = $_POST['year'];
     $semester = $_POST['semester'];
@@ -25,7 +39,16 @@ if (isset($_POST['submit'])) {
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
-        echo "<script>alert('User with this roll number is already registered!');</script>";
+        echo "
+    <div class='alert m-auto col-md-6 alert-danger d-flex align-items-center alert-dismissible fade show' role='alert' style='height:20vh'>
+        <h1 class='text-center'>User with this roll number is already registered</h1>
+        <button type='button' onclick='backto()' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+    </div>
+    <script> function backto() {
+        window.location.href='../../register.php';
+    }
+    </script>
+    ";
     }
 
     if ($password == $cnf_password) {
@@ -49,28 +72,45 @@ if (isset($_POST['submit'])) {
                 $mail->Password = $_ENV['MAIL_PASSWORD']; // SMTP password
                 $mail->SMTPSecure = 'tls'; // Enable TLS encryption, `ssl` also accepted
                 $mail->Port = 587; // TCP port to connect to
-    
+
                 //Recipients
                 $mail->setFrom($_ENV['MAIL_USERNAME'], 'Geeta University');
                 $mail->addAddress($email, $name); // Add a recipient, Name is optional
-    
+
                 //Content
                 $mail->isHTML(true); // Set email format to HTML
                 $mail->Subject = 'Email Verification';
-                $mail->Body    = 'Click <a href="http://localhost/quiz-system/admin/handlers/verify_email.php?token=' . $token . '">here</a> to verify your email for Quiz System.';
+                $mail->Body = 'Click <a href="http://localhost/quiz-system/admin/handlers/verify_email.php?token=' . $token . '">here</a> to verify your email for Quiz System.';
                 $mail->AltBody = 'Click here to verify your email: http://localhost/quiz-system/admin/handlers/verify_email.php?token=' . $token;
-    
+
                 $mail->send();
-                echo '<script>alert("Verification email sent to your email address. Please verify your email to login.");window.location.href="../../login.php";</script>';
+                echo "
+                <div class='alert m-auto col-md-6 alert-success d-flex align-items-center alert-dismissible fade show' role='alert' style='height:20vh'>
+                    <h1 class='text-center'>Verification email sent to your email address. Please verify your email to login.</h1>
+                    <button type='button' onclick='backto()' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+                </div>
+                <script> function backto() {
+                    window.location.href='../../login.php';
+                }
+                </script>
+                ";
             } catch (Exception $e) {
                 echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
             }
-        }
-        else {
+        } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
     } else {
-        echo "<script>alert('Passwords do not match!');window.location.href='../../register.php'</script>";
+        echo "
+        <div class='alert m-auto col-md-6 alert-danger d-flex align-items-center alert-dismissible fade show' role='alert' style='height:20vh'>
+      <h1 class='text-center'>Passwords do not match!</h1>
+      <button type='button' onclick='backto()' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+    </div>
+        <script> function backto() {
+            window.location.href='../../register.php';
+        }
+        </script>
+        ";
     }
 
 }

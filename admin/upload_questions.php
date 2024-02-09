@@ -1,7 +1,7 @@
 <?php
 
 include 'config/config.php';
-include 'pools.php';
+// include 'pools.php';
 
 if (!isset($_SESSION['admin'])) {
     header('location: ../login.php');
@@ -34,12 +34,16 @@ if (isset($_POST['submit'])) {
         // Execute the query
         
         if ($conn->query($sql) === TRUE) {
-            echo "<script>alert('Questions uploaded successfully!')</script>";
+            echo "<script>alert('Questions uploaded successfully!');
+                window.location.href='pools.php';
+            </script>";
         } else {
             echo "<script>alert('Error: " . $sql . "<br>" . $conn->error . "')</script>";
         }
     } else {
-        echo "<script>alert('Please upload a CSV file.')</script>";
+        echo "<script>alert('Please upload a CSV file.');
+            window.location.href='pools.php';
+        </script>";
     }
 }
 
