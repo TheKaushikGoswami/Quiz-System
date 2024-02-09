@@ -115,75 +115,60 @@ for($i = 0; $i < count($pools); $i++) {
 </div>
 <script>
     // var form = document.getElementById('quiz');
-    window.onload = function(){
-        var finalTime = new Date(<?php $sql = "SELECT * FROM quiz WHERE id = $quiz_id"; 
+    document.addEventListener('DOMContentLoaded', function() {
+    var finalTime = new Date(<?php 
+        $sql = "SELECT * FROM quiz WHERE id = $quiz_id"; 
         $result = $conn->query($sql);
         $row = $result->fetch_assoc();
         $time = strtotime($row['start'] . ' + ' . $row['time'] . ' minutes');
         $time = date('Y-m-d H:i:s', $time);
         echo json_encode($time);
-        ?>);
-        var now = new Date();
-        var now = now.getTime();
-        var final = finalTime.getTime();
-        console.log(final);
+    ?>);
+    
+    var now = new Date().getTime();
+    var final = finalTime.getTime();
 
-        if(finalTime < now) {
+    if(finalTime < now) {
+        if (document.getElementById("main-quiz")) {
             document.getElementById("main-quiz").submit();
+        } else {
+            console.log("Form not found");
         }
-        else {
-            var timeLeft = finalTime - now;
-            var minutes = Math.floor(timeLeft / (1000 * 60));
-            var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-            var time = minutes + ':' + seconds;
-            document.getElementById('time').innerHTML = time;
-            var x = setInterval(function() {
-                timeLeft = timeLeft - 1000;
-                minutes = Math.floor(timeLeft / (1000 * 60));
-                seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-                time = minutes + ':' + seconds ;
-                document.getElementById('time').innerHTML = time;
-                if(timeLeft < 0) {
-                    document.getElementById("main-quiz").submit();
-                    clearInterval(x);
-                    // form.dispatchEvent(new Event('submit'));
-                }
-            }, 1000);
-        }
+    } else {
+        var timeLeft = final - now;
+        updateTimer(timeLeft); // Call updateTimer function to handle countdown and submission
     }
+});
+
+function updateTimer(timeLeft) {
+    var x = setInterval(function() {
+        timeLeft -= 1000;
+        var minutes = Math.floor(timeLeft / (1000 * 60));
+        var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+        var time = minutes + ':' + seconds;
+        document.getElementById('time').innerHTML = time;
+
+        if(timeLeft <= 1000) {
+            clearInterval(x);
+            document.getElementById('time').innerHTML = "0:0";
+            var form = document.getElementById("main-quiz");
+            if (form) {
+                var submitButton = document.createElement("input");
+                submitButton.type = "submit";
+                submitButton.name = "submit";
+                submitButton.style.display = "none"; // Hide the submit button
+                form.appendChild(submitButton);
+                submitButton.click();
+                form.removeChild(submitButton); // Clean up if necessary
+            } else {
+                console.log("Form not found");
+            }
+        }
+    }, 1000);
+}
+
 </script>
 
 <?php
 include 'includes/footer.php';
 ?>
-
-<!--  Computer Organisation and Architecture is used to design your computer system. Computer Architecture is considered 
-
-Computer Hardwares are the physical parts of computer that are tangible. Softwares are the set of programs and instructions that are used to operate the computer system.
-
-1. It is the designing of the internal structure of the computer system.
-2. Designing of the organisation of hardware.
-3. Designing of the internal working including CPU.
-
-PCI - Peripheral Component Interconnect
-
-Difference b/w Architecture & Organisation:
-
-    1. Architecture describes WHAT the computer does and Organisation describes HOW it does.
-    2. Architecture deals with structural relationships and Organisation deals with functional relationships.
-    3. Hardware is the part of Architecture and Performance is the part of Organisation.
-    4. Architecture is 1st priority and Organisaiton comes later.
-    5. Architecture is also called ISA and Organisation is also called Microarchitecture.
-    6. Architecture is Objective and Organisation is subjective.
-    
-- Databus
-- Address
-
-Memory Types:
-
-    - Cache
-    - Primary/Main/Volatile
-    - Secondary/Non-Volatile
-
-
--->

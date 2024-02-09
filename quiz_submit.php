@@ -1,5 +1,8 @@
 <?php
 
+error_reporting(E_ALL & ~E_WARNING);
+ini_set('display_errors', 1);
+
 include 'admin/config/config.php';
 
 $quiz_id = $_SERVER['QUERY_STRING'];
@@ -16,14 +19,15 @@ $total_questions = $row['total_ques'];
 if(isset($_POST['submit'])) {
     $score = 0;
     for($i = 1; $i <= $total_questions; $i++) {
-        $ques = $_POST['ques'.$i];
-        if($ques == '' || $ques == null) {
+        if(!$_POST['ques'.$i] || !$_POST['ans'.$i]) {
             continue;
         }
-        $ans = $_POST['ans'.$i];
-
-        if($ques == $ans) {
-            $score++;
+        else{
+            $ques = $_POST['ques'.$i];
+            $ans = $_POST['ans'.$i];
+            if($ques == $ans) {
+                $score++;
+            }
         }
     }
 }
@@ -37,7 +41,7 @@ $sql = "INSERT INTO `$quiz_name` (`user_id`, `marks`, `marks_per_pool`) VALUES (
 $result = $conn->query($sql);
 
 if($result) {
-    echo "<script>alert('Quiz submitted successfully');window.location.href='index.php'</script>";
+    echo "<script>alert('Quiz submitted successfully');window.location.href='index.php';</script>";
 } else {
     echo $conn->error;
 }
