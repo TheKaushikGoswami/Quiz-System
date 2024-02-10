@@ -29,6 +29,7 @@ if (isset($_POST['submit'])) {
         </script>
         ";
     }
+    
     $course = $_POST['course'];
     $year = $_POST['year'];
     $semester = $_POST['semester'];
