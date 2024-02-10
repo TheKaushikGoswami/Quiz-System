@@ -35,7 +35,7 @@ if(isset($_POST['submit'])) {
         `id` INT(11) NOT NULL AUTO_INCREMENT,
         `user_id` BIGINT(20) NOT NULL,
         `marks` FLOAT NOT NULL,
-        `marks_per_pool` VARCHAR(255) NOT NULL,
+        `percentage` VARCHAR(255) NOT NULL,
         PRIMARY KEY (`id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
 

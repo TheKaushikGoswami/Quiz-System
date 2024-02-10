@@ -95,10 +95,10 @@ for($i = 0; $i < count($pools); $i++) {
                                 echo '<div class="form-group mb-5">';
                                 echo '<h3>' . $i . ". " . $ques['question'] . '</h3>';
                                 echo '<div class="form-check">';
-                                echo '<label style="font-size:20px"><input type="radio" class="my-2" name="ques'. $i .'" value="' . $ques['option1'] . '"> ' . $ques['option1'] . '</label><br>';
-                                echo '<label style="font-size:20px"><input type="radio" class="my-2" name="ques'. $i .'" value="' . $ques['option2'] . '"> ' . $ques['option2'] . '</label><br>';
-                                echo '<label style="font-size:20px"><input type="radio" class="my-2" name="ques'. $i .'" value="' . $ques['option3'] . '"> ' . $ques['option3'] . '</label><br>';
-                                echo '<label style="font-size:20px"><input type="radio" class="my-2" name="ques'. $i .'" value="' . $ques['option4'] . '"> ' . $ques['option4'] . '</label><br>';
+                                echo '<label style="font-size:20px; width:100%"><input type="radio" class="my-2" name="ques'. $i .'" value="' . $ques['option1'] . '"> ' . $ques['option1'] . '</label><br>';
+                                echo '<label style="font-size:20px; width:100%"><input type="radio" class="my-2" name="ques'. $i .'" value="' . $ques['option2'] . '"> ' . $ques['option2'] . '</label><br>';
+                                echo '<label style="font-size:20px; width:100%"><input type="radio" class="my-2" name="ques'. $i .'" value="' . $ques['option3'] . '"> ' . $ques['option3'] . '</label><br>';
+                                echo '<label style="font-size:20px; width:100%"><input type="radio" class="my-2" name="ques'. $i .'" value="' . $ques['option4'] . '"> ' . $ques['option4'] . '</label><br>';
                                 echo '<input type="hidden" name="ans'. $i .'" value="' . $ques['answer'] . '">';
                                 echo '</div>';
                                 echo '</div>';
