@@ -2,11 +2,7 @@
 
 include '../config/config.php';
 
-$token = $_SERVER['QUERY_STRING'];
-
-// remove token= from the string
-
-$token = str_replace('token=', '', $token);
+$token = $_GET['token'];
 
 $sql = "SELECT * FROM `users` WHERE `token` = '$token'";
 
