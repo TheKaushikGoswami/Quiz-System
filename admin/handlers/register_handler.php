@@ -18,16 +18,7 @@ if (isset($_POST['submit'])) {
     $em_check = "SELECT * FROM `users` WHERE `email` = '$email'";
     $em_result = $conn->query($em_check);
     if ($em_result->num_rows > 0) {
-        echo "
-        <div class='alert m-auto col-md-6 alert-danger d-flex align-items-center alert-dismissible fade show' role='alert' style='height:20vh'>
-            <h1 class='text-center'>This email is already registered. Please use different email id</h1>
-            <button type='button' onclick='backto()' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
-        </div>
-        <script> function backto() {
-            window.location.href='../../login.php';
-        }
-        </script>
-        ";
+        echo "<script>alert('User with this email is already registered'); window.location.href='../../register.php';</script>";
     }
     
     $course = $_POST['course'];
@@ -40,16 +31,7 @@ if (isset($_POST['submit'])) {
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
-        echo "
-    <div class='alert m-auto col-md-6 alert-danger d-flex align-items-center alert-dismissible fade show' role='alert' style='height:20vh'>
-        <h1 class='text-center'>User with this roll number is already registered</h1>
-        <button type='button' onclick='backto()' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
-    </div>
-    <script> function backto() {
-        window.location.href='../../register.php';
-    }
-    </script>
-    ";
+        echo "<script>alert('User with this roll number is already registered!'); window.location.href='../../register.php';</script>";
     }
 
     if ($password == $cnf_password) {
@@ -102,16 +84,7 @@ if (isset($_POST['submit'])) {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
     } else {
-        echo "
-        <div class='alert m-auto col-md-6 alert-danger d-flex align-items-center alert-dismissible fade show' role='alert' style='height:20vh'>
-      <h1 class='text-center'>Passwords do not match!</h1>
-      <button type='button' onclick='backto()' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
-    </div>
-        <script> function backto() {
-            window.location.href='../../register.php';
-        }
-        </script>
-        ";
+        echo "<script>alert('Passwords do not match!'); window.location.href='../../register.php';</script>";
     }
 
 }
