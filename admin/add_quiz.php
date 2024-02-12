@@ -55,8 +55,9 @@ if (!isset($_SESSION['admin'])) {
               <li>
                 <a class="dropdown-item" href="add_quiz.php">Create New Quiz</a>
               </li>
-
-              <li><a class="dropdown-item" href="all_quiz.php">All Quiz</a></li>
+              <li>
+                <a class="dropdown-item" href="all_quiz.php">All Quiz</a>
+              </li>
               <li>
                 <hr class="dropdown-divider" />
               </li>
@@ -112,7 +113,9 @@ if (!isset($_SESSION['admin'])) {
           <hr />
           <div id="subjects-div"></div>
           <hr />
-          <label for=""><h5>Quiz details:</h5></label>
+          <label for="">
+            <h5>Quiz details:</h5>
+          </label>
           <input
             type="text"
             class="form-control bg-dark text-light mb-3"
@@ -135,7 +138,9 @@ if (!isset($_SESSION['admin'])) {
             placeholder="Enter Quiz Time in Minutes"
           />
           <hr />
-          <label for=""><h5>Quiz starts at:</h5></label>
+          <label for="">
+            <h5>Quiz starts at:</h5>
+          </label>
           <input
             type="datetime-local"
             class="form-control bg-dark text-light mb-3"
@@ -144,7 +149,9 @@ if (!isset($_SESSION['admin'])) {
             placeholder="Enter Quiz Start Time"
           />
           <hr />
-          <label for=""><h5>Allot Quiz to:</h5></label>
+          <label for="">
+            <h5>Allot Quiz to:</h5>
+          </label>
           <select
             class="form-select bg-dark text-light mb-3"
             name="allot_course"
@@ -174,7 +181,12 @@ if (!isset($_SESSION['admin'])) {
             <option value="4th">4th Year</option>
           </select>
           <div class="d-flex justify-content-end">
-            <button class="btn btn-outline-primary" onclick="event.preventDefault();checkAll()">All</button>
+            <button
+              class="btn btn-outline-primary"
+              onclick="event.preventDefault();checkAll()"
+            >
+              All
+            </button>
           </div>
           <div id="users-div"></div>
 
@@ -194,48 +206,48 @@ if (!isset($_SESSION['admin'])) {
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
-    $(document).ready(function(){
-        // Function to fetch and display users
-        function fetchUsers() {
-            let course = $('#allot_course').val();
-            let year = $('#allot_year').val();
-            
-            $.ajax({
-                url: 'fetch_users.php', // Adjust the path if your PHP file is in a different directory.
-                type: 'POST',
-                data: {
-                    course: course,
-                    year: year
-                },
-                success: function(response){
-                    $('#users-div').html(response);
-                }
-            });
-        }
+    $(document).ready(function () {
+      // Function to fetch and display users
+      function fetchUsers() {
+        let course = $('#allot_course').val();
+        let year = $('#allot_year').val();
 
-        // Trigger fetchUsers function whenever the selects change
-        $('#allot_course, #allot_year').change(fetchUsers);
+        $.ajax({
+          url: 'fetch_users.php', // Adjust the path if your PHP file is in a different directory.
+          type: 'POST',
+          data: {
+            course: course,
+            year: year
+          },
+          success: function (response) {
+            $('#users-div').html(response);
+          }
+        });
+      }
 
-        // Optionally, call fetchUsers on page load if you want to display some default data
-        fetchUsers();
+      // Trigger fetchUsers function whenever the selects change
+      $('#allot_course, #allot_year').change(fetchUsers);
+
+      // Optionally, call fetchUsers on page load if you want to display some default data
+      fetchUsers();
     });
 
     let subjectsDiv = document.getElementById('subjects-div');
     if (subjectsDiv.innerHTML == '') {
-        subjectsDiv.innerHTML = "<h5 class='text-center'><span class='badge rounded-pill bg-success'>First enter number of subjects above</span></h5>";
+      subjectsDiv.innerHTML = "<h5 class='text-center'><span class='badge rounded-pill bg-success'>First enter number of subjects above</span></h5>";
     }
     function generateSubjects() {
 
-        let subjectsDiv = document.getElementById('subjects-div');
-        let numSubjects = document.getElementById('num_subjects');
-        let num = 0;
+      let subjectsDiv = document.getElementById('subjects-div');
+      let numSubjects = document.getElementById('num_subjects');
+      let num = 0;
 
-        num = numSubjects.value;
-        subjectsDiv.innerHTML = '';
-        for (let i = 0; i < num; i++) {
-            let subjectDiv = document.createElement('div');
-            subjectDiv.classList.add('mb-3');
-            subjectDiv.innerHTML = `
+      num = numSubjects.value;
+      subjectsDiv.innerHTML = '';
+      for (let i = 0; i < num; i++) {
+        let subjectDiv = document.createElement('div');
+        subjectDiv.classList.add('mb-3');
+        subjectDiv.innerHTML = `
                 <div class="input-group">
                 <select class="form-control bg-dark col-md-6 text-light" name="subject${i + 1}" id="">
                    <?php
@@ -250,19 +262,19 @@ if (!isset($_SESSION['admin'])) {
                 </div>
 
             `;
-            subjectsDiv.appendChild(subjectDiv);
-        }
+        subjectsDiv.appendChild(subjectDiv);
+      }
     }
 
     function checkAll() {
-        let checkboxes = document.querySelectorAll('input[type="checkbox"]');
-        checkboxes.forEach(checkbox => {
-            if (checkbox.checked == false) {
-                checkbox.checked = true;
-            } else {
-                checkbox.checked = false;
-            }
-        });
+      let checkboxes = document.querySelectorAll('input[type="checkbox"]');
+      checkboxes.forEach(checkbox => {
+        if (checkbox.checked == false) {
+          checkbox.checked = true;
+        } else {
+          checkbox.checked = false;
+        }
+      });
     }
   </script>
 </div>

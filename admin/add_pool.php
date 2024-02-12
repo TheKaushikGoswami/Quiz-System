@@ -5,15 +5,12 @@ include 'config/config.php';
 
 if (!isset($_SESSION['admin'])) {
     header('location: ../login.php');
+    exit();
 }
 
 if (isset($_POST['submit'])) {
-    $name = $_POST['name'];
+    $name = str_replace(' ', '_', $_POST['name']);
     $description = $_POST['description'];
-
-    // if $name contains space replace space with underscore
-
-    $name = str_replace(' ', '_', $name);
 
     $sql = "CREATE TABLE `$name` (
         `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -28,19 +25,21 @@ if (isset($_POST['submit'])) {
 
     $sql2 = "INSERT INTO `question_pools` (`name`, `description`) VALUES ('$name', '$description')";
 
-    if ($conn->query($sql) === TRUE) {
-        $conn->query($sql2);
-        echo '<script>alert("Question Pool Added Successfully");window.location.href="pools.php"</script>';
-    } else {
-        echo '<script>alert("Failed to Add Question Pool")</script>';
-    }
-}
-
-?>
+    if ($conn->query($sql) === TRUE) { $conn->query($sql2); echo '
+<script>
+    alert("Question Pool Added Successfully");
+    window.location.href = "pools.php";
+</script>
+'; } else { echo '
+<script>
+    alert("Failed to Add Question Pool");
+</script>
+'; } } ?>
 
 <style>
-    input::placeholder,textarea::placeholder{
-        color: grey!important;
+    input::placeholder,
+    textarea::placeholder {
+        color: grey !important;
     }
 </style>
 <div class="container-fluid p-0">
@@ -66,18 +65,24 @@ if (isset($_POST['submit'])) {
                             Admin Action
                         </a>
                         <ul class="dropdown-menu bg-dark-subtle">
-                            <li><a class="dropdown-item" href="add_quiz.php">Create New Quiz</a></li>
-                            
-<li><a class="dropdown-item" href="all_quiz.php">All Quiz</a></li>
                             <li>
-                                <hr class="dropdown-divider">
+                                <a class="dropdown-item" href="add_quiz.php">Create New Quiz</a>
                             </li>
-                            <li><a class="dropdown-item" href="add_pool.php">Add New Question Pool</a></li>
+
+                            <li><a class="dropdown-item" href="all_quiz.php">All Quiz</a></li>
+                            <li>
+                                <hr class="dropdown-divider" />
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="add_pool.php">Add New Question Pool</a>
+                            </li>
                         </ul>
                     </li>
                 </ul>
                 <form class="d-flex" method="post" role="search">
-                    <button class="btn btn-outline-danger" type="submit" name="logout">Logout</button>
+                    <button class="btn btn-outline-danger" type="submit" name="logout">
+                        Logout
+                    </button>
                 </form>
             </div>
         </div>
@@ -90,11 +95,15 @@ if (isset($_POST['submit'])) {
             <div class="card-body">
                 <form class="" action="" method="post">
                     <label for="name">Subject</label>
-                    <input type="text" class="form-control bg-dark text-light mb-3" name="name" id="name" placeholder="Enter Subject Name">
+                    <input type="text" class="form-control bg-dark text-light mb-3" name="name" id="name"
+                        placeholder="Enter Subject Name" />
                     <label for="name">Description</label>
-                    <textarea class="form-control bg-dark text-light mb-3" name="description" id="description" cols="30" rows="10" placeholder="Enter Description"></textarea>
+                    <textarea class="form-control bg-dark text-light mb-3" name="description" id="description" cols="30"
+                        rows="10" placeholder="Enter Description"></textarea>
                     <div class="d-flex justify-content-end">
-                        <button class="btn btn-outline-light col-md-1" type="submit" name="submit">Add</button>
+                        <button class="btn btn-outline-light col-md-1" type="submit" name="submit">
+                            Add
+                        </button>
                     </div>
                 </form>
             </div>
@@ -102,6 +111,4 @@ if (isset($_POST['submit'])) {
     </div>
 </div>
 
-<?php
-include '../includes/footer.php';
-?>
+<?php include '../includes/footer.php'; ?>
