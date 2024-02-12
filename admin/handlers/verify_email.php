@@ -2,19 +2,28 @@
 
 include '../config/config.php';
 
-$token = $_GET['token'];
+if (isset($_GET['token'])) {
+    $token = $_GET['token'];
 
-$sql = "SELECT * FROM `users` WHERE `token` = '$token'";
+    // Prepare statement to select user with the given token
+    $sql = $conn->prepare("SELECT * FROM `users` WHERE `token` = ?");
+    $sql->bind_param("s", $token);
+    $sql->execute();
+    $result = $sql->get_result();
 
-$result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // Prepare statement to update user status
+        $updateSql = $conn->prepare("UPDATE `users` SET `status` = '1' WHERE `token` = ?");
+        $updateSql->bind_param("s", $token);
+        $updateSql->execute();
 
-if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    $sql = "UPDATE `users` SET `status` = '1' WHERE `token` = '$token'";
-    $conn->query($sql);
-    echo "<script>alert('Email verified successfully');window.location.href='../../login.php'</script>";
+        echo "<script>alert('Email verified successfully'); window.location.href='/quiz-system/login.php';</script>";
+    } else {
+        echo "<script>alert('Invalid token'); window.location.href='/quiz-system/login.php';</script>";
+    }
 } else {
-    echo "<script>alert('Invalid token');window.location.href='../../login.php'</script>";
+    // Redirect user if no token is provided in the URL
+    echo "<script>window.location.href='/quiz-system/login.php';</script>";
 }
 
 ?>

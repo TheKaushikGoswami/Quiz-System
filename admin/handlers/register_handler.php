@@ -5,88 +5,63 @@ use PHPMailer\PHPMailer\Exception;
 
 require '../config/config.php';
 require '../../vendor/autoload.php';
-require '../../vendor/PHPMailer/PHPMailer/src/PHPMailer.php';
-require '../../vendor/PHPMailer/PHPMailer/src/SMTP.php';
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../..');
 $dotenv->load();
 
 if (isset($_POST['submit'])) {
-    $roll = $_POST['roll'];
-    $name = $_POST['name'];
-    $email = $_POST['email'];
+    $roll = $conn->real_escape_string($_POST['roll']);
+    $name = $conn->real_escape_string($_POST['name']);
+    $email = $conn->real_escape_string($_POST['email']);
     $em_check = "SELECT * FROM `users` WHERE `email` = '$email'";
     $em_result = $conn->query($em_check);
     if ($em_result->num_rows > 0) {
         echo "<script>alert('User with this email is already registered'); window.location.href='../../register.php';</script>";
-    }
-    
-    $course = $_POST['course'];
-    $year = $_POST['year'];
-    $semester = $_POST['semester'];
-    $password = $_POST['password'];
-    $cnf_password = $_POST['cnf_password'];
+    } else {
+        $course = $conn->real_escape_string($_POST['course']);
+        $year = $conn->real_escape_string($_POST['year']);
+        $password = $conn->real_escape_string($_POST['password']);
+        $cnf_password = $conn->real_escape_string($_POST['cnf_password']);
 
-    $sql = "SELECT * FROM `users` WHERE `roll_no` = '$roll'";
-    $result = $conn->query($sql);
-
-    if ($result->num_rows > 0) {
-        echo "<script>alert('User with this roll number is already registered!'); window.location.href='../../register.php';</script>";
-    }
-
-    if ($password == $cnf_password) {
-        // Generate a unique token
-        $token = bin2hex(random_bytes(50));
-
-        // Insert user data along with the token and set email verification to false
-        $sql = "INSERT INTO `users` (`roll_no`, `name`, `email`, `course`, `year`, `password`, `token`) VALUES ('$roll', '$name', '$email', '$course', '$year', '$password', '$token')";
+        $sql = "SELECT * FROM `users` WHERE `roll_no` = '$roll'";
         $result = $conn->query($sql);
 
-        if ($result === TRUE) {
-            // Send verification email using Gmail SMTP
-            $mail = new PHPMailer(true); // Passing `true` enables exceptions
+        if ($result->num_rows > 0) {
+            echo "<script>alert('User with this roll number is already registered!'); window.location.href='../../register.php';</script>";
+        } elseif ($password == $cnf_password) {
+            $token = bin2hex(random_bytes(50));
+            $sql = "INSERT INTO `users` (`roll_no`, `name`, `email`, `course`, `year`, `password`, `token`) VALUES ('$roll', '$name', '$email', '$course', '$year', '$password', '$token')";
+            if ($conn->query($sql) === TRUE) {
+                $mail = new PHPMailer(true);
+                try {
+                    $mail->isSMTP();
+                    $mail->Host = 'smtp.gmail.com';
+                    $mail->SMTPAuth = true;
+                    $mail->Username = $_ENV['MAIL_USERNAME'];
+                    $mail->Password = $_ENV['MAIL_PASSWORD'];
+                    $mail->SMTPSecure = 'tls';
+                    $mail->Port = 587;
 
-            try {
-                //Server settings
-                $mail->isSMTP(); // Set mailer to use SMTP
-                $mail->Host = 'smtp.gmail.com'; // Specify main and backup SMTP servers
-                $mail->SMTPAuth = true; // Enable SMTP authentication
-                $mail->Username = $_ENV['MAIL_USERNAME']; // SMTP username
-                $mail->Password = $_ENV['MAIL_PASSWORD']; // SMTP password
-                $mail->SMTPSecure = 'tls'; // Enable TLS encryption, `ssl` also accepted
-                $mail->Port = 587; // TCP port to connect to
+                    $mail->setFrom($_ENV['MAIL_USERNAME'], 'Geeta University');
+                    $mail->addAddress($email, $name);
 
-                //Recipients
-                $mail->setFrom($_ENV['MAIL_USERNAME'], 'Geeta University');
-                $mail->addAddress($email, $name); // Add a recipient, Name is optional
+                    $mail->isHTML(true);
+                    $mail->Subject = 'Email Verification';
+                    $mail->Body = 'Click <a href="http://localhost/quiz-system/admin/handlers/verify_email.php?token=' . $token . '">here</a> to verify your email for Quiz System.';
+                    $mail->AltBody = 'Click here to verify your email: http://localhost/quiz-system/admin/handlers/verify_email.php?token=' . $token;
 
-                //Content
-                $mail->isHTML(true); // Set email format to HTML
-                $mail->Subject = 'Email Verification';
-                $mail->Body = 'Click <a href="http://localhost/quiz-system/admin/handlers/verify_email.php?token=' . $token . '">here</a> to verify your email for Quiz System.';
-                $mail->AltBody = 'Click here to verify your email: http://localhost/quiz-system/admin/handlers/verify_email.php?token=' . $token;
-
-                $mail->send();
-                echo "
-                <div class='alert m-auto col-md-6 alert-success d-flex align-items-center alert-dismissible fade show' role='alert' style='height:20vh'>
-                    <h1 class='text-center'>Verification email sent to your email address. Please verify your email to login.</h1>
-                    <button type='button' onclick='backto()' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
-                </div>
-                <script> function backto() {
-                    window.location.href='../../login.php';
+                    $mail->send();
+                    echo "<script>alert('Verification email sent to your email address. Please verify your email to login.'); window.location.href='../../login.php';</script>";
+                } catch (Exception $e) {
+                    echo "<script>alert('Message could not be sent. Mailer Error: {$mail->ErrorInfo}'); window.location.href='../../register.php';</script>";
                 }
-                </script>
-                ";
-            } catch (Exception $e) {
-                echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
+            } else {
+                echo "<script>alert('Error: " . $conn->error . "'); window.location.href='../../register.php';</script>";
             }
         } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
+            echo "<script>alert('Passwords do not match!'); window.location.href='../../register.php';</script>";
         }
-    } else {
-        echo "<script>alert('Passwords do not match!'); window.location.href='../../register.php';</script>";
     }
-
 }
 
 ?>

@@ -41,15 +41,7 @@ $sql = "INSERT INTO `$quiz_name` (`user_id`, `marks`, `percentage`) VALUES ('{$_
 $result = $conn->query($sql);
 
 if($result) {
-    echo "<div class='alert m-auto col-md-6 alert-danger d-flex align-items-center alert-dismissible fade show' role='alert' style='height:20vh'>
-        <h1 class='text-center'>Quiz Submitted Successfully</h1>
-  <button type='button' onclick='backto()' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
-</div>
-    <script> function backto() {
-        window.location.href='index.php';
-    }
-    </script>
-    ";
+    echo "<script>alert('Quiz Submitted Successfully!'); window.location.href='index.php';</script>";
 } else {
     echo $conn->error;
 }
