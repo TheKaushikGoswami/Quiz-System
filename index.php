@@ -80,6 +80,4 @@ if (isset($_POST['logout'])) {
     </div>
 </div>
 
-<?php
-include 'includes/footer.php';
-?>
+<?php include 'includes/footer.php'; ?>

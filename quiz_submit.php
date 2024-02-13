@@ -6,44 +6,64 @@ ini_set('display_errors', 1);
 include 'includes/header.php';
 include 'admin/config/config.php';
 
-$quiz_id = $_SERVER['QUERY_STRING'];
-$quiz_id = substr($quiz_id, 8);
+// Extract 'id' query parameter safely
+$quiz_id = isset($_GET['id']) ? $_GET['id'] : '';
 
-$sql = "SELECT * FROM `quiz` WHERE `id` = '$quiz_id'";
-$result = $conn->query($sql);
+// Prepare statement to avoid SQL injection
+$sql = "SELECT * FROM `quiz` WHERE `id` = ?";
+$stmt = $conn->prepare($sql);
 
-$row = $result->fetch_assoc();
+if (!$stmt) {
+    echo "Prepare failed: (" . $conn->errno . ") " . $conn->error;
+    include 'includes/footer.php';
+    exit;
+}
 
-$quiz_name = $row['name'];
-$total_questions = $row['total_ques'];
+$stmt->bind_param("s", $quiz_id);
+$stmt->execute();
+$result = $stmt->get_result();
 
-if(isset($_POST['submit'])) {
-    $score = 0;
-    for($i = 1; $i <= $total_questions; $i++) {
-        if(!$_POST['ques'.$i] || !$_POST['ans'.$i]) {
-            continue;
-        }
-        else{
-            $ques = $_POST['ques'.$i];
-            $ans = $_POST['ans'.$i];
-            if($ques == $ans) {
+if ($row = $result->fetch_assoc()) {
+    $quiz_name = $row['name'];
+    $total_questions = $row['total_ques'];
+
+    if (isset($_POST['submit'])) {
+        $score = 0;
+        for ($i = 1; $i <= $total_questions; $i++) {
+            if (empty($_POST['ques' . $i]) || empty($_POST['ans' . $i])) {
+                continue;
+            }
+            $ques = $_POST['ques' . $i];
+            $ans = $_POST['ans' . $i];
+            if ($ques == $ans) {
                 $score++;
             }
         }
+
+        $final_score = ($score / $total_questions) * 100;
+        $final_score = number_format($final_score, 2);
+
+        // Prepare statement for insert to avoid SQL injection
+        $sql_insert = "INSERT INTO `$quiz_name` (`user_id`, `marks`, `percentage`) VALUES (?, ?, ?)";
+        $stmt_insert = $conn->prepare($sql_insert);
+
+        if (!$stmt_insert) {
+            echo "Prepare failed: (" . $conn->errno . ") " . $conn->error;
+        } else {
+            $stmt_insert->bind_param("sii", $_SESSION['user'], $score, $final_score);
+            if ($stmt_insert->execute()) {
+                echo "<script>alert('Quiz Submitted Successfully!'); window.location.href='index.php';</script>";
+            } else {
+                echo "Error: " . $stmt_insert->error;
+            }
+            $stmt_insert->close();
+        }
     }
-}
-
-$final_score = ($score / $total_questions) * 100;
-$final_score = number_format($final_score, 2);
-
-$sql = "INSERT INTO `$quiz_name` (`user_id`, `marks`, `percentage`) VALUES ('{$_SESSION['user']}', '$score', '$final_score')";
-
-$result = $conn->query($sql);
-
-if($result) {
-    echo "<script>alert('Quiz Submitted Successfully!'); window.location.href='index.php';</script>";
 } else {
-    echo $conn->error;
+    echo "Quiz not found.";
 }
 
+$stmt->close();
 include 'includes/footer.php';
+
+?>
