@@ -7,7 +7,8 @@ include 'includes/header.php';
 include 'admin/config/config.php';
 
 // Extract 'id' query parameter safely
-$quiz_id = isset($_GET['id']) ? $_GET['id'] : '';
+$quiz_id = $_SERVER['QUERY_STRING'];
+$quiz_id = str_replace("quiz_id=", "", $quiz_id);
 
 // Prepare statement to avoid SQL injection
 $sql = "SELECT * FROM `quiz` WHERE `id` = ?";
