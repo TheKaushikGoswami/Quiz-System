@@ -76,7 +76,7 @@ while ($row = $result->fetch_assoc()) {
                             <th scope="col">S.No</th>
                             <th scope="col">Roll No</th>
                             <th scope="col">Name</th>
-                            <th scope="col">No of Questions attempted</th>
+                            <th scope="col">Correct Questions</th>
                             <th scope="col">Percentage</th>
                         </tr>
                     </thead>
