@@ -14,7 +14,7 @@ $result = $conn->query($sql);
 ?>
 
 <div class="container-fluid p-0">
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark m-0">
+    <nav class="navbar navbar-expand-md bg-light m-0">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Quiz Manager</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -47,7 +47,7 @@ $result = $conn->query($sql);
                     </li>
                 </ul>
                 <div class="d-flex" role="search"><!-- Button trigger modal -->
-                    <button type="button" class="btn btn-outline-success mr-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <button type="button" class="btn btn-outline-success mx-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Upload Questions
                     </button>
 
@@ -81,7 +81,7 @@ $result = $conn->query($sql);
                     </div>
                     </div>
                     <form class="d-flex" method="post" role="search">
-                    <button class="btn btn-outline-danger" type="submit" name="logout">Logout</button>
+                    <button class="btn btn-outline-danger mx-2" type="submit" name="logout">Logout</button>
                 </form>
                 </div>
             </div>

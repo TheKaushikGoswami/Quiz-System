@@ -69,24 +69,20 @@ for($i = 0; $i < count($pools); $i++) {
 }
 ?>
 
-<div class="container-fluid p-0">
-    <nav class="navbar navbar-expand-lg col-md-12 navbar-dark bg-dark m-0 ">
-    <form class="d-flex" method="post" role="search">
-        <button class="btn btn-outline-danger" type="submit" name="logout" >Logout</button>
-    </form>
-    </nav>
+<div class="container-fluid p-3">
 
-    <div class="row" style="position:fixed;z-index:2000;top:10px;right:0">
-        <h2 class="text-center m-auto my-5"><span id="time" style="width:130px;font-size:30px;text-align:center" class="badge bg-success rounded-pill"></span></h2>
+
+    <div class="row" style="position:fixed;z-index:2000;top:10px;right:20px">
+        <h2 class="text-center m-auto"><span id="time" style="width:130px;font-size:30px;text-align:center" class="badge bg-success rounded-pill"></span></h2>
     </div>
 
     <div class="row">
         <div class="col-md-12">
-            <div class="card col-md-6 m-auto mt-5 bg-dark text-light">
-                <div class="card-header">
-                    <h1 class="text-center"><?php echo str_replace('_',' ',$quiz_name) ?></h1>
-                </div>
-                <div class="card-body">
+            <div class="card col-md-6 m-auto mt-5" style="border-radius:30px">
+                <!-- <div class="card-header"> -->
+                    <h1 class="text-center my-4"><?php echo strtoupper(str_replace('_',' ',$quiz_name)) ?></h1>
+                <!-- </div> -->
+                <div class="card-body col-md-11 m-auto">
                     <form id="main-quiz" name="main-quiz" action="quiz_submit.php?quiz_id=<?php echo $quiz_id ?>" method="post">
                         <?php
                         $i = 1;
@@ -95,10 +91,10 @@ for($i = 0; $i < count($pools); $i++) {
                                 echo '<div class="form-group mb-5">';
                                 echo '<h3>' . $i . ". " . $ques['question'] . '</h3>';
                                 echo '<div class="form-check">';
-                                echo '<label style="font-size:20px; width:100%"><input type="radio" class="my-2" name="ques'. $i .'" value="' . $ques['option1'] . '"> ' . $ques['option1'] . '</label><br>';
-                                echo '<label style="font-size:20px; width:100%"><input type="radio" class="my-2" name="ques'. $i .'" value="' . $ques['option2'] . '"> ' . $ques['option2'] . '</label><br>';
-                                echo '<label style="font-size:20px; width:100%"><input type="radio" class="my-2" name="ques'. $i .'" value="' . $ques['option3'] . '"> ' . $ques['option3'] . '</label><br>';
-                                echo '<label style="font-size:20px; width:100%"><input type="radio" class="my-2" name="ques'. $i .'" value="' . $ques['option4'] . '"> ' . $ques['option4'] . '</label><br>';
+                                echo '<label style="font-size:20px; width:100%;padding:0 10px"><input type="radio" class="my-2" name="ques'. $i .'" value="' . $ques['option1'] . '"> ' . $ques['option1'] . '</label><br>';
+                                echo '<label style="font-size:20px; width:100%;padding:0 10px"><input type="radio" class="my-2" name="ques'. $i .'" value="' . $ques['option2'] . '"> ' . $ques['option2'] . '</label><br>';
+                                echo '<label style="font-size:20px; width:100%;padding:0 10px"><input type="radio" class="my-2" name="ques'. $i .'" value="' . $ques['option3'] . '"> ' . $ques['option3'] . '</label><br>';
+                                echo '<label style="font-size:20px; width:100%;padding:0 10px"><input type="radio" class="my-2" name="ques'. $i .'" value="' . $ques['option4'] . '"> ' . $ques['option4'] . '</label><br>';
                                 echo '<input type="hidden" name="ans'. $i .'" value="' . $ques['answer'] . '">';
                                 echo '</div>';
                                 echo '</div>';
@@ -106,7 +102,9 @@ for($i = 0; $i < count($pools); $i++) {
                             }
                         }
                         ?>
-                        <input class="btn btn-outline-success" type="submit" name="submit" value="Submit">
+                        <div class="d-flex justify-content-end col-md-12">
+                        <input class="btn btn-outline-success col-md-2" type="submit" name="submit" value="Submit">
+                        </div>
                     </form>
                 </div>
             </div>

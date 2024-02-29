@@ -16,7 +16,7 @@ if (!isset($_SESSION['admin'])) {
 </style>
 
 <div class="container-fluid p-0">
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark m-0">
+    <nav class="navbar navbar-expand-md bg-light m-0">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Quiz Manager</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -37,7 +37,7 @@ if (!isset($_SESSION['admin'])) {
                             aria-expanded="false">
                             Admin Action
                         </a>
-                        <ul class="dropdown-menu bg-dark-subtle">
+                        <ul class="dropdown-menu bg-light" style="border-radius:25px;padding:20px;overflow:hidden">
                             <li><a class="dropdown-item" href="add_quiz.php">Create New Quiz</a></li>
                             
 <li><a class="dropdown-item" href="all_quiz.php">All Quiz</a></li>
@@ -56,10 +56,10 @@ if (!isset($_SESSION['admin'])) {
     </nav>
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card bg-dark text-light mt-5 p-4" style="padding-right:15px">
-                <div class="card-header">
-                    <h1 class="mb-0">Quiz Management System</h1>
-                </div>
+            <div class="card my-5 p-4" style="padding-right:15px">
+                <!-- <div class="card-header"> -->
+                    <h1 class="m-auto my-3">Quiz Management System</h1>
+                <!-- </div> -->
                 <div class="card-body">
                     <p>Welcome to our cutting-edge Quiz Management System, where innovation meets education! Designed to provide an enriching and dynamic assessment experience, our platform stands out with its unique feature: the intelligent shuffling of questions and options.</p>
                     <hr class="mx-3">
@@ -80,7 +80,7 @@ if (!isset($_SESSION['admin'])) {
                     <p>Whether you're an educator seeking a reliable and innovative assessment tool or an organization dedicated to employee training, our Quiz Management System with Dynamic Shuffling promises a holistic, fair, and engaging experience for all users. Experience the transformative power of assessment with our state-of-the-art platform and unlock new possibilities in the realm of online quizzes!</p>
                     <hr class="mx-3">
                 </div>
-                <div class="card-footer d-flex justify-content-end">
+                <div class="d-flex justify-content-end">
                     <h4>Made with <span class="text-danger">&hearts;</span> in Bharat by Kaushik Goswami & Humanshu Jaglan</h4>
                 </div>
             </div>

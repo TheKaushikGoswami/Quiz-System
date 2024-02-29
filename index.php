@@ -20,14 +20,16 @@ if (isset($_POST['logout'])) {
 ?>
 
 <div class="container-fluid p-0">
-    <nav class="navbar navbar-expand-lg col-md-12 navbar-dark bg-dark m-0 ">
-        <form class="d-flex" method="post" role="search">
-            <button class="btn btn-outline-danger" type="submit" name="logout">Logout</button>
+    <img src="qms.png" alt="" style="height:150px;position:absolute">
+    <nav class="navbar col-md-12  m-0 d-flex justify-content-end" style="height:150px">
+        <form class="d-flex justify-content-end col-md-12" method="post" role="search">
+            <button class="btn btn-outline-danger mx-3" type="submit" name="logout">Logout</button>
         </form>
     </nav>
     <div class="row">
         <div class="col-md-12">
-            <h1 class="text-center my-4">Active Quizes</h1>
+            <h1 class="text-center my-4 bg-kight" style="font-size:40px">Active Quizes</h1>
+            <div class="row d-flex p-3 ">
             <?php
             $sql = "SELECT * FROM `quiz` WHERE `start` < NOW() + INTERVAL 2 HOUR";
             $result = $conn->query($sql);
@@ -41,10 +43,8 @@ if (isset($_POST['logout'])) {
                         continue;
                     }
                     ?>
-                    <div class="card m-auto bg-dark text-light mb-2" style="width:18rem">
-                        <div class="card-header">
-                            <h2><?php echo $row['name'] ?></h2>
-                        </div>
+                    <div class="card m-3 mb-2" style="width:20rem;border-radius:30px">
+                            <h2 class="text-center my-2"><?php echo $row['name'] ?></h2>
                         <div class="card-body">
                             <p class="card-text"><?php echo $row['rules'] ?></p>
                             <?php
@@ -76,6 +76,7 @@ if (isset($_POST['logout'])) {
                 echo "<div class='alert alert-danger text-center'>No active quizes</div>";
             }
             ?>
+            </div>
         </div>
     </div>
 </div>

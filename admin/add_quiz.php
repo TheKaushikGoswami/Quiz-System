@@ -19,7 +19,7 @@ if (!isset($_SESSION['admin'])) {
   }
 </style>
 <div class="container-fluid p-0">
-  <nav class="navbar navbar-expand-md navbar-dark bg-dark m-0">
+  <nav class="navbar navbar-expand-md bg-light m-0">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Quiz Manager</a>
       <button

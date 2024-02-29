@@ -2,7 +2,7 @@
 $host = 'localhost';
 $user = 'root';
 $pass = '';
-$db = 'qms';
+$db = 'quiz_system';
 $tz = 'Asia/Kolkata';
 
 date_default_timezone_set($tz);
