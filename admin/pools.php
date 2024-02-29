@@ -35,7 +35,7 @@ $result = $conn->query($sql);
                             aria-expanded="false"  aria-current="page">
                             Admin Action
                         </button>
-                        <ul class="dropdown-menu bg-dark-subtle">
+                        <ul class="dropdown-menu bg-light" style="border-radius:25px;padding:20px;overflow:hidden">
                             <li><a class="dropdown-item" href="add_quiz.php">Create New Quiz</a></li>
                             
 <li><a class="dropdown-item" href="all_quiz.php">All Quiz</a></li>
@@ -100,7 +100,7 @@ $result = $conn->query($sql);
 
 
             ?>
-                    <div class="card bg-dark text-light m-3" style="width: 20rem;">
+                    <div class="card m-3" style="width: 20rem;border-radius:25px">
                         <span class="badge rounded-pill bg-primary" style="position: absolute;right: -11px;top: -7px;"><?php echo $num_questions ?></span>
                         <div class="card-body">
                             <h4 class="card-title mb-3"><?php echo str_replace('_', ' ', $row["name"]); ?></h4>
@@ -108,7 +108,7 @@ $result = $conn->query($sql);
                                 <?php echo $row["description"]; ?>
                             </p>
                             <div class="buttons d-flex justify-content-between">
-                                <a href="pool_details.php?pool_id=<?php echo $row['id'] ?>" class="btn btn-outline-light">View Details</a>
+                                <a href="pool_details.php?pool_id=<?php echo $row['id'] ?>" class="btn btn-outline-dark">View Details</a>
                                 <a href="#" class="btn btn-outline-danger" onclick="deletePool('<?php echo str_replace('_', ' ', $row["name"]); ?>')">Delete Pool</a>
                             </div>
                         </div>
@@ -122,12 +122,24 @@ $result = $conn->query($sql);
 
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 <script>
     function deletePool(poolName) {
-        var r = confirm("Are you sure you want to delete the pool " + poolName + "?");
-        if (r == true) {
-            window.location.href = "delete_pool.php?pool=" + poolName;
-        }
+        var r = Swal.fire({
+            title: 'Are you sure?',
+            text: "You want to delete " + poolName + " pool",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "delete_pool.php?pool=" + poolName;
+            }
+        });
+      
     }
 </script>
 

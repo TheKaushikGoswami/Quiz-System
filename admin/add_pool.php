@@ -25,14 +25,35 @@ if (isset($_POST['submit'])) {
 
     $sql2 = "INSERT INTO `question_pools` (`name`, `description`) VALUES ('$name', '$description')";
 
-    if ($conn->query($sql) === TRUE) { $conn->query($sql2); echo '
+    if ($conn->query($sql) === TRUE) { $conn->query($sql2); 
+        
+    echo '
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    alert("Question Pool Added Successfully");
-    window.location.href = "pools.php";
+    Swal.fire({
+        title: "Question Pool Added Successfully!",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 1500
+    })
+    setTimeout(() => {
+        window.location.href = "pools.php";
+    }, 1500);
 </script>
 '; } else { echo '
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    alert("Failed to Add Question Pool");
+    
+    Swal.fire({
+        title: "Error!",
+        text: "Error: ' . $sql . '<br>' . $conn->error . '",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 1500
+    })
+    setTimeout(() => {
+        window.location.href = "add_pool.php";
+    }, 1500);
 </script>
 '; } } ?>
 
@@ -64,18 +85,14 @@ if (isset($_POST['submit'])) {
                             aria-expanded="false">
                             Admin Action
                         </a>
-                        <ul class="dropdown-menu bg-dark-subtle">
+                        <ul class="dropdown-menu bg-light" style="border-radius:25px;padding:20px;overflow:hidden">
+                            <li><a class="dropdown-item" href="add_quiz.php">Create New Quiz</a></li>
+                            
+<li><a class="dropdown-item" href="all_quiz.php">All Quiz</a></li>
                             <li>
-                                <a class="dropdown-item" href="add_quiz.php">Create New Quiz</a>
+                                <hr class="dropdown-divider">
                             </li>
-
-                            <li><a class="dropdown-item" href="all_quiz.php">All Quiz</a></li>
-                            <li>
-                                <hr class="dropdown-divider" />
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="add_pool.php">Add New Question Pool</a>
-                            </li>
+                            <li><a class="dropdown-item" href="add_pool.php">Add New Question Pool</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -88,20 +105,18 @@ if (isset($_POST['submit'])) {
         </div>
     </nav>
     <div class="container">
-        <div class="card col-md-8 bg-dark text-light m-auto mt-3">
-            <div class="card-header">
-                <h1 class="mb-0">Add New Question Pool</h1>
-            </div>
+        <div class="card col-md-8 p-3 m-auto mt-3" style="border-radius:30px">
+                <h1 class="my-2 text-center">Add New Question Pool</h1>
             <div class="card-body">
                 <form class="" action="" method="post">
                     <label for="name">Subject</label>
-                    <input type="text" class="form-control bg-dark text-light mb-3" name="name" id="name"
+                    <input type="text" class="form-control mb-3" name="name" id="name"
                         placeholder="Enter Subject Name" />
                     <label for="name">Description</label>
-                    <textarea class="form-control bg-dark text-light mb-3" name="description" id="description" cols="30"
+                    <textarea class="form-control mb-3" name="description" id="description" cols="30"
                         rows="10" placeholder="Enter Description"></textarea>
                     <div class="d-flex justify-content-end">
-                        <button class="btn btn-outline-light col-md-1" type="submit" name="submit">
+                        <button class="btn btn-outline-dark col-md-1" type="submit" name="submit">
                             Add
                         </button>
                     </div>

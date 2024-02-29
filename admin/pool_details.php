@@ -21,7 +21,7 @@ $result = $conn->query($sql);
 ?>
 
 <div class="container-fluid p-0">
-<nav class="navbar navbar-expand-md navbar-dark bg-dark m-0">
+<nav class="navbar navbar-expand-md bg-light m-0">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Quiz Manager</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -47,21 +47,19 @@ $result = $conn->query($sql);
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-10 mt-5">
-                <div class="card bg-dark text-light p-4" style="padding-right:15px">
-                    <div class="card-header">
+                <div class="card p-4 mb-5" style="border-radius:30px">
                         <h1 class="text-center"><?php echo strtoupper(str_replace('_',' ',$pool_name)); ?></h1>
-                    </div>
                     <div class="card-body">
-                        <table class="table table-dark table-striped table-hover">
+                        <table class="table table-stripe table-hover">
                             <thead>
                                 <tr>
-                                    <th scope="col">Question ID</th>
-                                    <th scope="col">Question</th>
-                                    <th scope="col">Option 1</th>
-                                    <th scope="col">Option 2</th>
-                                    <th scope="col">Option 3</th>
-                                    <th scope="col">Option 4</th>
-                                    <th scope="col">Answer</th>
+                                    <th scope="col" class="col-md-1">Sr no.</th>
+                                    <th scope="col" class="col-md-4">Question</th>
+                                    <th scope="col" class="col-md-2">Option 1</th>
+                                    <th scope="col" class="col-md-2">Option 2</th>
+                                    <th scope="col" class="col-md-2">Option 3</th>
+                                    <th scope="col" class="col-md-2">Option 4</th>
+                                    <th scope="col" class="col-md-2">Answer</th>
                                 </tr>
                             </thead>
                             <tbody>

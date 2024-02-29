@@ -56,9 +56,9 @@ if (!isset($_SESSION['admin'])) {
     </nav>
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card my-5 p-4" style="padding-right:15px">
+            <div class="card my-5 p-3" style="border-radius:30px">
                 <!-- <div class="card-header"> -->
-                    <h1 class="m-auto my-3">Quiz Management System</h1>
+                    <h1 class="m-auto my-2">Quiz Management System</h1>
                 <!-- </div> -->
                 <div class="card-body">
                     <p>Welcome to our cutting-edge Quiz Management System, where innovation meets education! Designed to provide an enriching and dynamic assessment experience, our platform stands out with its unique feature: the intelligent shuffling of questions and options.</p>

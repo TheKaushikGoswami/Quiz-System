@@ -9,7 +9,7 @@ if(isset($_POST['course']) && isset($_POST['year'])) {
     $query = "SELECT * FROM users WHERE course = '$course' AND year = '$year'";
     $result = $conn->query($query);
     if ($result->num_rows > 0) {
-        echo "<table class='table table-dark' style='border-collapse: collapse; width: 100%; text-align: center' align='center'>";
+        echo "<table class='table' style='border-collapse: collapse; width: 100%; text-align: center' align='center'>";
         echo "<tr><th>Roll No</th><th>Name</th><th>Allotment</th></tr>";
         $i = 0;
         while($row = $result->fetch_assoc()) {

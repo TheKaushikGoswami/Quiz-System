@@ -43,7 +43,22 @@ if(isset($_POST['submit'])) {
     $result = $conn->query($sql);
     if($result) {
         $conn->query($quiz_table);
-        echo "<script>alert('Quiz added successfully');window.location.href='add_quiz.php'</script>";
+        // echo "<script>alert('Quiz added successfully');window.location.href='add_quiz.php'</script>";
+        echo "
+        <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+        <script>
+            Swal.fire({
+                title: 'Quiz added successfully!',
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 1500
+            })
+            setTimeout(() => {
+                window.location.href = 'add_quiz.php';
+            }, 1500);
+        </script>
+        ";
+        
     } else {
         echo $conn->error;
     }

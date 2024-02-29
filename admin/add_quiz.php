@@ -9,11 +9,6 @@ if (!isset($_SESSION['admin'])) {
 
 ?>
 <style>
-  input::placeholder,
-  textarea::placeholder {
-    color: white !important;
-  }
-
   input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
   }
@@ -51,21 +46,14 @@ if (!isset($_SESSION['admin'])) {
             >
               Admin Action
             </a>
-            <ul class="dropdown-menu bg-dark-subtle">
+            <ul class="dropdown-menu bg-light" style="border-radius:25px;padding:20px;overflow:hidden">
+              <li><a class="dropdown-item" href="add_quiz.php">Create New Quiz</a></li>
+              
+              <li><a class="dropdown-item" href="all_quiz.php">All Quiz</a></li>
               <li>
-                <a class="dropdown-item" href="add_quiz.php">Create New Quiz</a>
+                  <hr class="dropdown-divider">
               </li>
-              <li>
-                <a class="dropdown-item" href="all_quiz.php">All Quiz</a>
-              </li>
-              <li>
-                <hr class="dropdown-divider" />
-              </li>
-              <li>
-                <a class="dropdown-item" href="add_pool.php"
-                  >Add New Question Pool</a
-                >
-              </li>
+              <li><a class="dropdown-item" href="add_pool.php">Add New Question Pool</a></li>
             </ul>
           </li>
         </ul>
@@ -78,16 +66,14 @@ if (!isset($_SESSION['admin'])) {
     </div>
   </nav>
   <div class="container-fluid">
-    <div class="card col-md-5 bg-dark text-light m-auto mt-3">
-      <div class="card-header">
-        <h1 class="mb-0">Add New Quiz</h1>
-      </div>
+    <div class="card col-md-5 m-auto mt-3 p-3" style="border-radius:30px">
+        <h1 class="text-center my-2">Add New Quiz</h1>
       <div class="card-body">
         <form class="" action="quiz.php" method="post">
           <div class="input-group">
             <input
               type="number"
-              class="form-control bg-dark text-light"
+              class="form-control"
               name="num_subjects"
               id="num_subjects"
               placeholder="Enter Number of Subjects"
@@ -118,13 +104,13 @@ if (!isset($_SESSION['admin'])) {
           </label>
           <input
             type="text"
-            class="form-control bg-dark text-light mb-3"
+            class="form-control mb-3"
             name="quiz_name"
             id="quiz_name"
             placeholder="Enter Quiz Name"
           />
           <textarea
-            class="form-control bg-dark text-light mb-3"
+            class="form-control mb-3"
             name="quiz_rules"
             id="quiz_rules"
             placeholder="Enter Quiz Rules"
@@ -132,7 +118,7 @@ if (!isset($_SESSION['admin'])) {
           ></textarea>
           <input
             type="number"
-            class="form-control bg-dark text-light mb-3"
+            class="form-control mb-3"
             name="quiz_time"
             id="quiz_time"
             placeholder="Enter Quiz Time in Minutes"
@@ -143,7 +129,7 @@ if (!isset($_SESSION['admin'])) {
           </label>
           <input
             type="datetime-local"
-            class="form-control bg-dark text-light mb-3"
+            class="form-control mb-3"
             name="quiz_start"
             id="quiz_start"
             placeholder="Enter Quiz Start Time"
@@ -153,7 +139,7 @@ if (!isset($_SESSION['admin'])) {
             <h5>Allot Quiz to:</h5>
           </label>
           <select
-            class="form-select bg-dark text-light mb-3"
+            class="form-select mb-3"
             name="allot_course"
             id="allot_course"
           >
@@ -171,7 +157,7 @@ if (!isset($_SESSION['admin'])) {
             <option value="M.A">M.A</option>
           </select>
           <select
-            class="form-select bg-dark text-light mb-3"
+            class="form-select mb-3"
             name="allot_year"
             id="allot_year"
           >
@@ -182,7 +168,7 @@ if (!isset($_SESSION['admin'])) {
           </select>
           <div class="d-flex justify-content-end">
             <button
-              class="btn btn-outline-primary"
+              class="btn btn-outline-dark"
               onclick="event.preventDefault();checkAll()"
             >
               All
@@ -249,7 +235,7 @@ if (!isset($_SESSION['admin'])) {
         subjectDiv.classList.add('mb-3');
         subjectDiv.innerHTML = `
                 <div class="input-group">
-                <select class="form-control bg-dark col-md-6 text-light" name="subject${i + 1}" id="">
+                <select class="form-control col-md-6" name="subject${i + 1}" id="">
                    <?php
                    $sql = "SELECT * FROM `question_pools`";
                     $result = $conn->query($sql);
@@ -258,7 +244,7 @@ if (!isset($_SESSION['admin'])) {
                     }
                    ?>
                 </select>
-                <input type="number" class="form-control col-md-6 bg-dark text-light" name="num_questions${i + 1}" id="num_questions" placeholder="Enter Number of Questions">
+                <input type="number" class="form-control col-md-6" name="num_questions${i + 1}" id="num_questions" placeholder="Enter Number of Questions">
                 </div>
 
             `;

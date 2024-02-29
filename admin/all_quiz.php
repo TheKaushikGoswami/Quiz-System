@@ -31,7 +31,7 @@ if (!isset($_SESSION['admin'])) {
                             aria-expanded="false">
                             Admin Action
                         </a>
-                        <ul class="dropdown-menu bg-dark-subtle">
+                        <ul class="dropdown-menu bg-light" style="border-radius:25px;padding:20px;overflow:hidden">
                             <li><a class="dropdown-item" href="add_quiz.php">Create New Quiz</a></li>
                             
 <li><a class="dropdown-item" href="all_quiz.php">All Quiz</a></li>
@@ -57,14 +57,12 @@ if (!isset($_SESSION['admin'])) {
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
             ?>
-                        <div class="card bg-dark text-light m-3" style="width:20rem">
-                            <div class="card-header">
-                                <h2><?php echo str_replace('_',' ', $row['name']) ?></h2>
-                            </div>
+                        <div class="card m-3" style="width:20rem;border-radius:30px">
+                                <h2 class="text-center mt-3"><?php echo str_replace('_',' ', $row['name']) ?></h2>
                             <div class="card-body">
                                 <p><?php echo $row['rules'] ?></p>
                                 <!-- <p><?php echo $row['time'] ?></p> -->
-                                <a href="quiz_details.php?quiz_id=<?php echo $row['id'] ?>" class="btn btn-outline-success">View Details</a>
+                                <a href="quiz_details.php?quiz_id=<?php echo $row['id'] ?>" class="btn btn-outline-dark">View Details</a>
                             </div>
                         </div>
             <?php

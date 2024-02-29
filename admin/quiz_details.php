@@ -24,8 +24,10 @@ while ($row = $result->fetch_assoc()) {
 
 ?>
 
+
+
 <div class="container-fluid p-0">
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark m-0">
+    <nav class="navbar navbar-expand-md bg-light m-0">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Quiz Manager</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -46,7 +48,7 @@ while ($row = $result->fetch_assoc()) {
                             aria-expanded="false">
                             Admin Action
                         </a>
-                        <ul class="dropdown-menu bg-dark-subtle">
+                        <ul class="dropdown-menu bg-light" style="border-radius:25px;padding:20px">
                             <li><a class="dropdown-item" href="add_quiz.php">Create New Quiz</a></li>
                             
 <li><a class="dropdown-item" href="all_quiz.php">All Quiz</a></li>
@@ -65,12 +67,10 @@ while ($row = $result->fetch_assoc()) {
     </nav>
     <div class="container-fluid p-0">
         
-        <div class="card bg-dark text-light col-md-8 m-auto mt-5">
-            <div class="card-header">
-                <h1 class="text-center"><?php echo strtoupper(str_replace('_',' ',$quiz_name)); ?></h1>
-            </div>
-            <div class="card-body">
-                <table class="table table-dark bg-dark text-light col-md-5 m-auto">
+        <div class="card col-md-8 m-auto mt-5 p-4" style="border-radius:30px">
+                <h1 class="text-center my-3"><?php echo strtoupper(str_replace('_',' ',$quiz_name)); ?></h1>
+            <div id="quiz-detail" class="card-body">
+                <table class="table m-auto">
                     <thead>
                         <tr>
                             <th scope="col">S.No</th>
@@ -111,13 +111,12 @@ while ($row = $result->fetch_assoc()) {
                     
                 </table>
             </div>
+            <button id="generate-pdf" class="btn btn-outline-dark col-md-3">Generate PDF Report</button>
         </div>
-        <div class="card bg-dark text-light col-md-8 m-auto mt-5">
-            <div class="card-header">
-                <h1 class="text-center">Quiz Allocated to Students</h1>
-            </div>
+        <div class="card col-md-8 m-auto mt-5 p-3" style="border-radius:30px">
+                <h1 class="text-center my-3">Quiz Allocated to Students</h1>
             <div class="card-body">
-                <table class="table table-dark bg-dark text-light col-md-5 m-auto">
+                <table class="table col-md-5 m-auto">
                     <thead>
                         <tr>
                             <th scope="col">S.No</th>
@@ -158,6 +157,18 @@ while ($row = $result->fetch_assoc()) {
     </div>
    
 </div>
+
+    <script>
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById('generate-pdf').addEventListener('click', function () {
+            var element = document.getElementById('quiz-detail');
+            html2pdf(element);
+        });
+});
+</script>
+
+
+
 
 <?php
 include '../includes/footer.php';
