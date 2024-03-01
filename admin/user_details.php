@@ -36,31 +36,30 @@ $(document).ready(function() {
                 data: {roll_no: roll_no},
                 success: function(data) {
                     if(!data.error) {
-                        $('#userDetails').html(
-                            '<table class="table table-dark bg-dark text-light col-md-5 m-auto">' +
-                            '<thead>' +
-                            '<tr>' +
-                            '<th scope="col">Roll No</th>' +
-                            '<th scope="col">Name</th>' +
-                            '<th scope="col">Email</th>' +
-                            '<th scope="col">Course</th>' +
-                            '<th scope="col">Year</th>' +
-                            '</tr>' +
-                            '</thead>' +
-                            '<tbody>' +
-                            '<tr>' +
-                            '<td>' + data.roll_no + '</td>' +
-                            '<td>' + data.name + '</td>' +
-                            '<td>' + data.email + '</td>' +
-                            '<td>' + data.course + '</td>' +
-                            '<td>' + data.year + '</td>' +
-                            '</tr>' +
-                            '</tbody>' +
-                            '</table>'
-                        );
+                        var tableHtml = '<table class="table bg-dark text-light col-md-5 m-auto">' +
+                                        '<thead>' +
+                                        '<tr>' +
+                                        '<th scope="col">Roll No</th>' +
+                                        '<th scope="col">Quiz</th>' +
+                                        '<th scope="col">Marks</th>' +
+                                        '</tr>' +
+                                        '</thead>' +
+                                        '<tbody>';
+                        data.forEach(function(item) {
+                            tableHtml += '<tr>' +
+                                         '<td>' + item[0] + '</td>' + // roll_no
+                                         '<td>' + item[1] + '</td>' + // quiz name
+                                         '<td>' + item[2] + '</td>' + // marks
+                                         '</tr>';
+                        });
+                        tableHtml += '</tbody></table>';
+                        $('#userDetails').html(tableHtml);
                     } else {
                         $('#userDetails').html('<h3 class="text-center my-4">' + data.error + '</h3>');
                     }
+                },
+                error: function(xhr, status, error) {
+                    $('#userDetails').html('<h3 class="text-center my-4">An error occurred: ' + error + '</h3>');
                 }
             });
         } else {
