@@ -16,7 +16,7 @@ if (!isset($_SESSION['admin'])) {
 <div class="container-fluid p-0">
   <nav class="navbar navbar-expand-md bg-light m-0">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Quiz Manager</a>
+      <a class="navbar-brand" href="./index.php">Quiz Manager</a>
       <button
         class="navbar-toggler"
         type="button"

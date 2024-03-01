@@ -19,17 +19,29 @@ if (isset($_POST['logout'])) {
 
 ?>
 
+<style>
+    @media screen and (max-width: 640px) {
+        .logo{
+            height: 100px !important;;
+        }
+        .navbar{
+            height: 100px !important;
+        }
+
+    }
+</style>
+
 <div class="container-fluid p-0">
-    <img src="qms.png" alt="" style="height:150px;position:absolute">
-    <nav class="navbar col-md-12  m-0 d-flex justify-content-end" style="height:150px">
-        <form class="d-flex justify-content-end col-md-12" method="post" role="search">
+    <nav class="navbar col-md-12 bg-light m-0 d-flex justify-content-betwen" style="height:150px">
+        <img class="logo" src="qms.png" alt="" style="height:150px;">
+        <form class="" method="post" role="search">
             <button class="btn btn-outline-danger mx-3" type="submit" name="logout">Logout</button>
         </form>
     </nav>
+    <h1 class="text-center mb-4 py-3 bg-light" style="font-size:40px">Active Quizes</h1>
     <div class="row">
         <div class="col-md-12">
-            <h1 class="text-center my-4 bg-kight" style="font-size:40px">Active Quizes</h1>
-            <div class="row d-flex p-3 ">
+            <div class="row d-flex p-3 justify-content-center">
             <?php
             $sql = "SELECT * FROM `quiz` WHERE `start` < NOW() + INTERVAL 2 HOUR";
             $result = $conn->query($sql);
@@ -44,7 +56,7 @@ if (isset($_POST['logout'])) {
                     }
                     ?>
                     <div class="card m-3 mb-2" style="width:20rem;border-radius:30px">
-                            <h2 class="text-center my-2"><?php echo $row['name'] ?></h2>
+                            <h2 class="text-center my-2"><?php echo strtoupper(str_replace('_',' ',$row['name'])) ?></h2>
                         <div class="card-body">
                             <p class="card-text"><?php echo $row['rules'] ?></p>
                             <?php
@@ -57,10 +69,10 @@ if (isset($_POST['logout'])) {
                                 <?php
                             }
                             else if ($row['start'] > date('Y-m-d H:i:s')) {
-                                echo '<a class="btn btn-outline-primary disabled">Start Quiz</a> <span class="badge bg-warning">Not Started</span>';
+                                echo '<a class="btn btn-outline-primary disabled">Start Quiz</a> <span class="badge bg-warning rounded-pill">Not Started</span>';
                             }
                             else if(strtotime($row['start'] . ' + ' . $row['time'] . ' minutes') < strtotime(date('Y-m-d H:i:s'))) {
-                                echo '<a class="btn btn-outline-primary disabled">Start Quiz</a> <span class="badge bg-danger">Time Over</span>';
+                                echo '<a class="btn btn-outline-primary disabled">Start Quiz</a> <span class="badge bg-danger rounded-pill">Time Over</span>';
                             }
                             else {
                                 echo '<a href="quiz.php?quiz_id=' . $row['id'] . '" class="btn btn-outline-primary">Start Quiz</a>';

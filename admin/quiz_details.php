@@ -25,12 +25,22 @@ while ($row = $result->fetch_assoc()) {
 ?>
 
 
+<style>
+    @media screen and (max-width: 640px) {
+        table{
+            font-size: 10px;
+        }
+
+    }
+</style>
+
+
 
 <div class="container-fluid p-0">
     <nav class="navbar navbar-expand-md bg-light m-0">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Quiz Manager</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            <a class="navbar-brand" href="./index.php">Quiz Manager</a>
+            <button style="border:none"z class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
