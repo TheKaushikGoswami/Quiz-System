@@ -61,7 +61,7 @@ while ($row = $result->fetch_assoc()) {
                         <ul class="dropdown-menu bg-light" style="border-radius:25px;padding:20px">
                             <li><a class="dropdown-item" href="add_quiz.php">Create New Quiz</a></li>
                             
-<li><a class="dropdown-item" href="all_quiz.php">All Quiz</a></li>
+                            <li><a class="dropdown-item" href="all_quiz.php">All Quiz</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
@@ -78,7 +78,7 @@ while ($row = $result->fetch_assoc()) {
     <div class="container-fluid p-0">
         
         <div class="card col-md-8 m-auto mt-5 p-4" style="border-radius:30px">
-                <h1 class="text-center my-3"><?php echo strtoupper(str_replace('_',' ',$quiz_name)); ?></h1>
+                <h1 class="text-center my-3"><?php echo "Quiz name: " . strtoupper(str_replace('_',' ',$quiz_name)); ?></h1>
             <div id="quiz-detail" class="card-body">
                 <table class="table m-auto">
                     <thead>
