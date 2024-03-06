@@ -1,8 +1,8 @@
 <?php
 $host = 'localhost';
-$user = 'root';
-$pass = '';
-$db = 'quiz_system';
+$user = 'codeufcw_qms_user';
+$pass = 'w1o.*Acy;=}N';
+$db = 'codeufcw_qms_db';
 $tz = 'Asia/Kolkata';
 
 date_default_timezone_set($tz);
