@@ -54,6 +54,19 @@ if ($row = $result->fetch_assoc()) {
             $stmt_insert->bind_param("sii", $_SESSION['user'], $score, $final_score);
             if ($stmt_insert->execute()) {
                 echo "<script>alert('Quiz Submitted Successfully!'); window.location.href='index.php';</script>";
+                echo "
+                <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+                <script>
+                    Swal.fire({
+                        title: 'Quiz Submitted Successfully!',
+                        icon: 'success',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    setTimeout(() => {
+                        window.location.href = 'index.php';
+                    }, 1500);
+                    </script>";
             } else {
                 echo "Error: " . $stmt_insert->error;
             }

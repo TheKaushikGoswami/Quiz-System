@@ -36,6 +36,9 @@ if (!isset($_SESSION['admin'])) {
           <li class="nav-item">
             <a class="nav-link" href="pools.php">Question Pools</a>
           </li>
+          <li class="nav-item">
+                        <a class="nav-link" href="user_details.php">Result by Roll</a>
+                    </li>
           <li class="nav-item dropdown">
             <a
               class="nav-link dropdown-toggle"

@@ -30,6 +30,9 @@ $result = $conn->query($sql);
                     <li class="nav-item">
                         <a class="nav-link" href="pools.php">Question Pools</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="user_details.php">Result by Roll</a>
+                    </li>
                     <li class="nav-item dropdown">
                         <button class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false"  aria-current="page">

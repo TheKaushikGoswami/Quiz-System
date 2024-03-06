@@ -37,6 +37,9 @@ $result = $conn->query($sql);
                     <li class="nav-item">
                         <a class="nav-link" href="pools.php">Question Pools</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="user_details.php">Result by Roll</a>
+                    </li>
                 </ul>
                 <form class="d-flex" method="post" role="search">
                     <button class="btn btn-outline-danger" type="submit" name="logout">Logout</button>
