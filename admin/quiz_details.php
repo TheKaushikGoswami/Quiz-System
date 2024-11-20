@@ -20,6 +20,7 @@ while ($row = $result->fetch_assoc()) {
         $allocated_to = null;
     else
     $allocated_to = explode(',', $allocated_to);
+    array_pop($allocated_to);
 }
 
 ?>
@@ -81,16 +82,18 @@ while ($row = $result->fetch_assoc()) {
     <div class="container-fluid p-0">
         
         <div class="card col-md-8 m-auto mt-5 p-4" style="border-radius:30px">
-                <h1 class="text-center my-3"><?php echo "Quiz name: " . strtoupper(str_replace('_',' ',$quiz_name)); ?></h1>
+            <div id="quiz-name">
+                <h1 class="text-center my-3"><?php echo "Quiz name: " . strtoupper(str_replace('_',' ',$quiz_name)); ?></h1></div>
             <div id="quiz-detail" class="card-body">
                 <table class="table m-auto">
-                    <thead>
+                    <thead id='head_of_table'>
                         <tr>
                             <th scope="col">S.No</th>
                             <th scope="col">Roll No</th>
                             <th scope="col">Name</th>
                             <th scope="col">Correct Questions</th>
                             <th scope="col">Percentage</th>
+                            <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -114,6 +117,7 @@ while ($row = $result->fetch_assoc()) {
                                     ?></td>
                                     <td><?php echo $row['marks']; ?></td>
                                     <td><?php echo $row['percentage']; ?>%</td>
+                                    <td><input type="checkbox" style="width:25px;height:25px" name="generate_report[]"></td>
                                 </tr>
                         <?php
                                 $i++;
@@ -124,8 +128,59 @@ while ($row = $result->fetch_assoc()) {
                     
                 </table>
             </div>
+            <div class="d-flex justify-content-between">
             <button id="generate-pdf" class="btn btn-outline-dark col-md-3">Generate PDF Report</button>
+            <button class="btn btn-outline-success mx-2 col-md-1" onclick="checkAll()">All</button>
+            </div>
         </div>
+        <script>
+           function checkAll() {
+              let checkboxes = document.querySelectorAll('input[type="checkbox"]');
+              checkboxes.forEach(checkbox => {
+                if (checkbox.checked == false) {
+                  checkbox.checked = true;
+                } else {
+                  checkbox.checked = false;
+                }
+              });
+            }
+        </script>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('generate-pdf').addEventListener('click', function () {
+        var element = document.createElement('div');
+        element.innerHTML = "<div style='display:flex;justify-content:center'><img src='../qms.png' style='width:400px;margin:auto' /></div>";
+        element.innerHTML += document.getElementById('quiz-name').innerHTML;
+
+        var checkedRows = [];
+        var table = document.querySelector('.table');
+        var rows = table.rows;
+        var newTable = document.createElement('table');
+        newTable.className = 'table m-auto';
+        var newTableBody = document.createElement('tbody');
+
+        // Add table head to the new table
+        var newTableHead = document.createElement('thead');
+        newTableHead.innerHTML = table.querySelector('thead').innerHTML;
+        newTable.appendChild(newTableHead);
+
+        for (var i = 1; i < rows.length; i++) {
+            var row = rows[i];
+            var checkbox = row.querySelector('input[type="checkbox"]');
+            if (checkbox.checked) {
+                var newRow = row.cloneNode(true);
+                newTableBody.appendChild(newRow);
+            }
+        }
+
+        newTable.appendChild(newTableBody);
+        element.appendChild(newTable);
+        element.innerHTML += "<p class='mx-5' style='text-align:right;margin-top:30px'>Generated on: " + new Date().toDateString() + "</p>";
+
+        html2pdf().from(element).save();
+    });
+});
+</script>
         <div class="card col-md-8 m-auto mt-5 p-3" style="border-radius:30px">
                 <h1 class="text-center my-3">Quiz Allocated to Students</h1>
             <div class="card-body">
@@ -171,14 +226,6 @@ while ($row = $result->fetch_assoc()) {
    
 </div>
 
-    <script>
-document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById('generate-pdf').addEventListener('click', function () {
-            var element = document.getElementById('quiz-detail');
-            html2pdf(element);
-        });
-});
-</script>
 
 
 

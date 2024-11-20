@@ -22,14 +22,11 @@ if(isset($_POST['submit'])) {
     }
 
     $quiz_name = $_POST['quiz_name'];
-    $quiz_name = str_replace(' ', '_', $quiz_name);
+    $quiz_name = strtolower(str_replace(' ', '_', $quiz_name));
     $quiz_rules = $_POST['quiz_rules'];
     $quiz_time = $_POST['quiz_time'];
     $quiz_start = $_POST['quiz_start'];
-    $allocated_to_users = $_POST['allotment'];
-    if (is_array($allocated_to_users)) {
-        $allocated_to_users = implode(',', $allocated_to_users);
-    } 
+    $allocated_to_users = $_POST['allocated_to'];
 
     $quiz_table = "CREATE TABLE `$quiz_name` (
         `id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -43,21 +40,21 @@ if(isset($_POST['submit'])) {
     $result = $conn->query($sql);
     if($result) {
         $conn->query($quiz_table);
-        // echo "<script>alert('Quiz added successfully');window.location.href='add_quiz.php'</script>";
-        echo "
-        <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
-        <script>
-            Swal.fire({
-                title: 'Quiz added successfully!',
-                icon: 'success',
-                showConfirmButton: false,
-                timer: 1500
-            })
-            setTimeout(() => {
-                window.location.href = 'add_quiz.php';
-            }, 1500);
-        </script>
-        ";
+        echo "<script>alert('Quiz added successfully');window.location.href='add_quiz.php'</script>";
+        // echo "
+        // <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+        // <script>
+        //     Swal.fire({ 
+        //         title: 'Quiz added successfully!',
+        //         icon: 'success',
+        //         showConfirmButton: false,
+        //         timer: 1500
+        //     })
+        //     setTimeout(() => {
+        //         window.location.href = './add_quiz.php';
+        //     }, 1500);
+        // </script>
+        // ";
         
     } else {
         echo $conn->error;

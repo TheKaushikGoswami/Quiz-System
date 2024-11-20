@@ -8,7 +8,7 @@ include '../includes/header.php';
 <style>
     @media screen and (max-width: 640px) {
         table{
-            font-size: 8px;
+            font-size: 5px;
         }
         .check-result {
             width: 100% !important;

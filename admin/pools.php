@@ -57,27 +57,49 @@ $result = $conn->query($sql);
                     <!-- Modal -->
                     <div class="modal modal-lg fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content  bg-dark text-light">
+                        <div class="modal-content  p-5 " style="border-radius:30px">
                             <form action="upload_questions.php" method="post" enctype="multipart/form-data">
-                                <div class="modal-header">
                                     <h1 class="modal-title fs-5" id="exampleModalLabel">Upload Questions to Pool</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
                                 <div class="modal-body">
+                                    <label for="">Course</label>
+                                    <select name="course" id="allot_course" class="form-select mb-3" class="form-control">
+                                        <option value="B.Tech">B.Tech</option>
+                                      <option value="M.Tech">M.Tech</option>
+                                      <option value="B.Sc">B.Sc</option>
+                                      <option value="BCA">BCA</option>
+                                      <option value="MCA">MCA</option>
+                                      <option value="MBA">MBA</option>
+                                      <option value="BBA">BBA</option>
+                                    </select>
+                                    <label for="">Year</label>
+                                    <select name="year" id="allot_year" class="form-select mb-3" class="form-control">
+                                        <option value="1st">1st Year</option>
+                                        <option value="2nd">2nd Year</option>
+                                        <option value="3rd">3rd Year</option>
+                                        <option value="4th">4th Year</option>
+                                    </select>
                                     <label for="">Question Pool</label>
-                                        <select name="question_pool" class="bg-dark text-light form-select mb-3" id="" class="form-control">
+                                        <select name="question_pool"id="filtered_pools" class="form-select mb-3" id="" class="form-control">
                                             <?php
-                                            while ($row2 = $result->fetch_assoc()) {
-                                                echo '<option value="' . $row2["name"] . '">' . str_replace('_', ' ', $row2["name"]) . '</option>';
+                                            $sql = "SELECT * FROM `question_pools`";
+                                            $result = $conn->query($sql);
+
+                                            if($result->num_rows >0){
+                                                while($row=$result->fetch_assoc()){
+                                                    echo '<option value="'. $row['name'] . '> '. $row['name'] . ' </option>"';
+                                                }
                                             }
+           
                                             ?>
+                                          
                                         </select>
                                     <label for="">Upload File</label>
-                                    <input type="file" name="file" class="form-control bg-dark text-light mb-3" id="" placeholder="Upload CSV File" accept=".csv">
+                                    <input type="file" name="file" class="form-control mb-3" id="" placeholder="Upload CSV File" accept=".csv">
                                 </div>
+                                
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button class="btn btn-outline-success" type="submit" name="submit">Upload</button>
+                                    <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Close</button>
+                                    <button class="btn btn-outline-success" type="submit" name="submit">Upload</button> 
                                 </div>
                             </form>
                         </div>
@@ -90,6 +112,33 @@ $result = $conn->query($sql);
             </div>
         </div>
     </nav>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+       $(document).ready(function() {
+            function fetchPools() {
+            let course = $('#allot_course').val();
+            let year = $('#allot_year').val();
+
+            $.ajax({
+            url: 'fetch_pools.php', // Adjust the path if your PHP file is in a different directory.
+            type: 'POST',
+            data: {
+                course: course,
+                year: year
+            },
+            success: function(response) {
+                $('#filtered_pools').html(response);
+            }
+            });
+        }
+
+        // Trigger fetchUsers function whenever the selects change
+        $('#allot_course, #allot_year').change(fetchPools);
+
+        // Optionally, call fetchUsers on page load if you want to display some default data
+        fetchPools();
+        });
+    </script>
     <div class="container-fluid mt-3">
         <div class="row m-auto d-flex justify-content-center">
             <?php
@@ -97,6 +146,7 @@ $result = $conn->query($sql);
                 foreach ($result as $row) {
                     // now write the code to get number of questions in the pool
                     $pool_name = $row['name'];
+                    $pool_name = strtolower($pool_name);
                     $sql = "SELECT * FROM `$pool_name`";
                     $result2 = $conn->query($sql);
                     $num_questions = $result2->num_rows;
@@ -108,7 +158,9 @@ $result = $conn->query($sql);
                         <div class="card-body">
                             <h4 class="card-title mb-3"><?php echo str_replace('_', ' ', $row["name"]); ?></h4>
                             <p class="card-text">
-                                <?php echo $row["description"]; ?>
+                                <?php echo $row["description"]; ?><br>
+                                <!-- <b>Course: </b><?php //echo $row['course'];?><br> -->
+                                <!-- <b>Year: </b><?php //echo $row['year'];?> -->
                             </p>
                             <div class="buttons d-flex justify-content-between">
                                 <a href="pool_details.php?pool_id=<?php echo $row['id'] ?>" class="btn btn-outline-dark">View Details</a>
@@ -122,7 +174,7 @@ $result = $conn->query($sql);
             ?>
         </div>
     </div>
-
+ 
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>

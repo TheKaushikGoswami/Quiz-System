@@ -12,6 +12,11 @@ if (!isset($_SESSION['admin'])) {
   input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
   }
+  @media screen and (max-width:768px){
+      .submit-button{
+          width:100%;
+      }
+  }
 </style>
 <div class="container-fluid p-0">
   <nav class="navbar navbar-expand-md bg-light m-0">
@@ -169,6 +174,7 @@ if (!isset($_SESSION['admin'])) {
             <option value="3rd">3rd Year</option>
             <option value="4th">4th Year</option>
           </select>
+          <div id="allocated-users-div"></div>
           <div class="d-flex justify-content-end">
             <button
               class="btn btn-outline-dark"
@@ -178,20 +184,42 @@ if (!isset($_SESSION['admin'])) {
             </button>
           </div>
           <div id="users-div"></div>
+          <input type='hidden' name='allocated_to' />
+          <div class="d-flex justify-content-end mb-3">
+          <button id="allot-quiz" onclick="event.preventDefault()" class="btn btn-danger">Allot</button>
+            </div>
 
-          <div class="d-flex justify-content-end">
+            
+          
             <button
-              class="btn col-md-2 btn-outline-success col-md-1"
+              class="btn btn-success col-md-12 submit-button"
               type="submit"
               name="submit"
-            >
-              Add
+            > 
+              Add Quiz
             </button>
-          </div>
+          
         </form>
       </div>
     </div>
   </div>
+  <script>
+        var selected = '';
+      document.getElementById('allot-quiz').addEventListener('click', function(e){
+          e.preventDefault();
+          var allotment = document.getElementsByClassName('allotment');
+          
+          for(var i =0; i<allotment.length; i++){
+              if(allotment[i].checked){
+                  selected += allotment[i].value + ',';
+                  document.getElementById('allocated-users-div').innerHtml += `
+                    <div class="rounded-pill">${allotment[i].value}</div>
+                  `
+              }
+          }
+          document.getElementsByName('allocated_to')[0].value = selected;
+      });
+  </script>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>

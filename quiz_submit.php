@@ -53,7 +53,7 @@ if ($row = $result->fetch_assoc()) {
         } else {
             $stmt_insert->bind_param("sii", $_SESSION['user'], $score, $final_score);
             if ($stmt_insert->execute()) {
-                echo "<script>alert('Quiz Submitted Successfully!'); window.location.href='index.php';</script>";
+                // echo "<script>alert('Quiz Submitted Successfully!'); window.location.href='index.php';</script>";
                 echo "
                 <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
                 <script>

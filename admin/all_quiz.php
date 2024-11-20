@@ -63,9 +63,10 @@ if (!isset($_SESSION['admin'])) {
                         <div class="card m-3" style="width:20rem;border-radius:30px">
                                 <h2 class="text-center mt-3"><?php echo str_replace('_',' ', $row['name']) ?></h2>
                             <div class="card-body">
-                                <p><?php echo $row['rules'] ?></p>
+                                <!--<p><?php echo $row['rules'] ?></p>-->
                                 <!-- <p><?php echo $row['time'] ?></p> -->
                                 <a href="quiz_details.php?quiz_id=<?php echo $row['id'] ?>" class="btn btn-outline-dark">View Details</a>
+                                <a href="quiz_edit.php?quiz_id=<?php echo $row['id'] ?>" class="btn btn-outline-danger">Edit Quiz</a>
                             </div>
                         </div>
             <?php

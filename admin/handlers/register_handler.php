@@ -47,8 +47,8 @@ if (isset($_POST['submit'])) {
 
                     $mail->isHTML(true);
                     $mail->Subject = 'Email Verification';
-                    $mail->Body = 'Click <a href="http://localhost/quiz-system/admin/handlers/verify_email.php?token=' . $token . '">here</a> to verify your email for Quiz System.';
-                    $mail->AltBody = 'Click here to verify your email: http://localhost/quiz-system/admin/handlers/verify_email.php?token=' . $token;
+                    $mail->Body = 'Click <a href="http://qms.codetechbd.com/admin/handlers/verify_email.php?token=' . $token . '">here</a> to verify your email for Quiz System.';
+                    $mail->AltBody = 'Click here to verify your email: http://qms.codetechbd.com/admin/handlers/verify_email.php?token=' . $token;
 
                     $mail->send();
                     echo "<script>alert('Verification email sent to your email address. Please verify your email to login.'); window.location.href='../../login.php';</script>";

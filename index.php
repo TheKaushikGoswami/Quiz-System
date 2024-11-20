@@ -1,7 +1,9 @@
 <?php
-
+ini_set("display_errors",1);
 include 'includes/header.php';
 include 'admin/config/config.php';
+
+$user_roll = $_SESSION['user'];
 
 if (isset($_POST['logout'])) {
     session_destroy();
@@ -43,17 +45,25 @@ if (isset($_POST['logout'])) {
         <div class="col-md-12">
             <div class="row d-flex p-3 justify-content-center">
             <?php
-            $sql = "SELECT * FROM `quiz` WHERE `start` < NOW() + INTERVAL 2 HOUR";
-            $result = $conn->query($sql);
+            $sql = "SELECT * FROM `quiz` WHERE `allocated_to` LIKE CONCAT('%', ? , '%')";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("s", $user_roll);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            
+            
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
-                    // check if the quiz is allocated to the user or not
-                    $allocated_to = explode(',', $row['allocated_to']);
-                    // echo '<pre>';
-                    // print_r($allocated_to);
-                    if (!in_array($_SESSION['user'], $allocated_to)) {
-                        continue;
-                    }
+                    // // check if the quiz is allocated to the user or not
+                    // $allocated_to = explode(',', $row['allocated_to']);
+                    // // if (!in_array($_SESSION['user'], $allocated_to)) {
+                    // //     continue;
+                    // // }
+                    // echo $_SESSION['user'];
+
+                    // // var_dump($allocated_to);
+                    //
+                    
                     ?>
                     <div class="card m-3 mb-2" style="width:20rem;border-radius:30px">
                             <h2 class="text-center my-2"><?php echo strtoupper(str_replace('_',' ',$row['name'])) ?></h2>
@@ -61,7 +71,8 @@ if (isset($_POST['logout'])) {
                             <p class="card-text"><?php echo $row['rules'] ?></p>
                             <?php
                             $quiz_name = $row['name'];
-                            $sql2 = "SELECT * FROM `$quiz_name` WHERE `user_id` = '$_SESSION[user]'";
+                            $quiz_name = strtolower($quiz_name);
+                            $sql2 = "SELECT * FROM `$quiz_name` WHERE `user_id` = '$user_roll'";
                             $result2 = $conn->query($sql2);
                             if ($result2->num_rows > 0) {
                                 ?>
@@ -91,6 +102,30 @@ if (isset($_POST['logout'])) {
             </div>
         </div>
     </div>
+ 
+    <script>
+  (function () {
+    let devtoolsOpen = false;
+
+    const detectDevTools = function () {
+      if (window.outerWidth - window.innerWidth > 100 || window.outerHeight - window.innerHeight > 100) {
+        if (!devtoolsOpen) {
+          devtoolsOpen = true;
+        //   turn off the developer console
+            document.getElementById('quiz-submit-button').click();
+          alert("Developer tools are not allowed!");
+        }
+      } else {
+        devtoolsOpen = false;
+      }
+    };
+
+    window.addEventListener('resize', detectDevTools);
+    setInterval(detectDevTools, 1000);
+  })();
+</script>
+
+
 </div>
 
 <?php include 'includes/footer.php'; ?>

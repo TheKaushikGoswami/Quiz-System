@@ -57,6 +57,7 @@ array_pop($ques_per_pool);
 $questions = array();
 for($i = 0; $i < count($pools); $i++) {
     $pool = $pools[$i];
+    $pool = strtolower($pool);
     $num_questions = $ques_per_pool[$i];
     $sql = "SELECT * FROM `$pool` ORDER BY RAND() LIMIT $num_questions ";
     $result = $conn->query($sql);   
@@ -103,7 +104,7 @@ for($i = 0; $i < count($pools); $i++) {
                         }
                         ?>
                         <div class="d-flex justify-content-end col-md-12">
-                        <input class="btn btn-outline-success col-md-2" type="submit" name="submit" value="Submit">
+                        <input class="btn btn-outline-success col-md-2" type="submit" id="quiz-submit-button" name="submit" value="Submit">
                         </div>
                     </form>
                 </div>
@@ -111,6 +112,76 @@ for($i = 0; $i < count($pools); $i++) {
         </div>
     </div>
 </div>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Disable Text Selection
+    document.body.style.userSelect = "none"; // For most modern browsers
+    document.body.style.webkitUserSelect = "none"; // For Safari
+    document.body.style.msUserSelect = "none"; // For older IE versions
+    document.body.style.mozUserSelect = "none"; // For Firefox
+    document.body.style.khtmlUserSelect = "none"; // For Konqueror
+    document.body.style.oUserSelect = "none"; // For Opera
+
+    // Disable Copy, Cut, and Paste
+    document.body.addEventListener('copy', (e) => {
+      e.preventDefault();
+      alert('Copying content is not allowed!');
+    });
+
+    document.body.addEventListener('cut', (e) => {
+      e.preventDefault();
+      alert('Cutting content is not allowed!');
+    });
+
+    document.body.addEventListener('paste', (e) => {
+      e.preventDefault();
+      alert('Pasting content is not allowed!');
+    });
+
+    // Detect Tab Switching
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        document.getElementById('quiz-submit-button').click();
+      }
+    });
+
+    // Block Right-Click
+    document.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+      alert('Right-click is disabled on this site!');
+    });
+  });
+
+  // Additional measure: Preventing mouse selection directly
+  document.addEventListener('selectstart', (e) => {
+    e.preventDefault();
+    alert('Selecting text is not allowed!');
+  });
+</script>
+
+<script>
+  (function () {
+    let devtoolsOpen = false;
+
+    const detectDevTools = function () {
+      if (window.outerWidth - window.innerWidth > 100 || window.outerHeight - window.innerHeight > 100) {
+        if (!devtoolsOpen) {
+          devtoolsOpen = true;
+        //   turn off the developer console
+            document.getElementById('quiz-submit-button').click();
+          alert("Developer tools are not allowed!");
+        }
+      } else {
+        devtoolsOpen = false;
+      }
+    };
+
+    window.addEventListener('resize', detectDevTools);
+    setInterval(detectDevTools, 1000);
+  })();
+</script>
+
+
 <script>
     // var form = document.getElementById('quiz');
     document.addEventListener('DOMContentLoaded', function() {

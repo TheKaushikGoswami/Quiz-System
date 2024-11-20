@@ -48,7 +48,7 @@ if (isset($_POST['submit'])) {
                 ";
         }
     } else {
-        echo "<script>alert('Invalid email or password!'); window.location.href='../../login.php';</script>";
+        // echo "<script>alert('Invalid email or password!'); window.location.href='../../login.php';</script>";
         echo "
         <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
         <script>

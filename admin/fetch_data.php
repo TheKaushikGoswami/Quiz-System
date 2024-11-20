@@ -23,6 +23,7 @@ if(isset($_POST['roll_no'])) {
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             $name = $row['name'];
+            $name = strtolower($name);
             $no_of_ques = $row['total_ques'];
             $date = $row['start'];
             $date = date('d-m-Y', strtotime($date));

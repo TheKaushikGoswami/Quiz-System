@@ -14,10 +14,10 @@ if(isset($_POST['course']) && isset($_POST['year'])) {
         $i = 0;
         while($row = $result->fetch_assoc()) {
 
-            echo "<tr><td>" . $row["roll_no"]. "</td><td>" . $row["name"]. "</td><td><input style='width:25px;height: 25px;' type='checkbox' name='allotment[]' value='" . $row["roll_no"] . "'></td></tr>";
+            echo "<tr><td>" . $row["roll_no"]. "</td><td>" . $row["name"]. "</td><td><input style='width:25px;height: 25px;' type='checkbox' name='allotment[]' class='allotment' value='" . $row["roll_no"] . "'></td></tr>";
         }
         echo "</table>";
-    } else {
+    } else { 
         echo "0 results";
     }
 } else {

@@ -1,8 +1,9 @@
 <?php
+ini_set("display_errors",1);
 $host = 'localhost';
-$user = 'codeufcw_qms_user';
-$pass = 'w1o.*Acy;=}N';
-$db = 'codeufcw_qms_db';
+$user = 'root';
+$pass = '';
+$db = 'qms';
 $tz = 'Asia/Kolkata';
 
 date_default_timezone_set($tz);
@@ -18,7 +19,7 @@ if (!isset($_SESSION)){
 
 if (isset($_POST['logout'])) {
     session_destroy();
-    header('Location: /quiz-system/login.php');
+    header('Location: ../login.php');
     exit; // Ensure no further code is executed after redirection
 }
 

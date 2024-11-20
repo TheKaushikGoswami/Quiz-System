@@ -22,7 +22,7 @@ if (isset($_POST['submit'])) {
         $header = array_shift($csv_data);
 
         // Prepare SQL statement
-        $sql = "INSERT INTO $table(question, option1, option2, option3, option4, answer) VALUES";
+        $sql = "INSERT INTO $table(question, option1, option2, option3, option4, answer) VALUES ('sdfasd','adfa','fadsfa'),('sdfasd','adfa','fadsfa'),('sdfasd','adfa','fadsfa'),('sdfasd','adfa','fadsfa'),('sdfasd','adfa','fadsfa'),('sdfasd','adfa','fadsfa'),";
 
         foreach ($csv_data as $row) {
             $sql .= "('" . implode("', '", $row) . "'),";

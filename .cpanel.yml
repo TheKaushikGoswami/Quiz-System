@@ -1,0 +1,4 @@
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/codeufcw/public_html/qms
+    - /bin/cp * $DEPLOYPATH

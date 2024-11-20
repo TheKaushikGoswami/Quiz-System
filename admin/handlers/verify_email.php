@@ -17,9 +17,9 @@ if (isset($_GET['token'])) {
         $updateSql->bind_param("s", $token);
         $updateSql->execute();
 
-        echo "<script>alert('Email verified successfully'); window.location.href='/quiz-system/login.php';</script>";
+        echo "<script>alert('Email verified successfully'); window.location.href='../../login.php';</script>";
     } else {
-        echo "<script>alert('Invalid token'); window.location.href='/quiz-system/login.php';</script>";
+        echo "<script>alert('Invalid token'); window.location.href='../../login.php';</script>";
     }
 } else {
     // Redirect user if no token is provided in the URL

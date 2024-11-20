@@ -14,6 +14,7 @@ $sql = "SELECT name FROM `question_pools` WHERE `id` = '$pool_id'";
 $result = $conn->query($sql);
 $row = $result->fetch_assoc();
 $pool_name = $row['name'];
+$pool_name = strtolower($pool_name);
 
 $sql = "SELECT * FROM `$pool_name`";
 $result = $conn->query($sql);

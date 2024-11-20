@@ -10,6 +10,7 @@ if (!isset($_SESSION['admin'])) {
 
 if (isset($_POST['submit'])) {
     $name = str_replace(' ', '_', $_POST['name']);
+    $name = strtolower($name);
     $description = $_POST['description'];
 
     $sql = "CREATE TABLE `$name` (
